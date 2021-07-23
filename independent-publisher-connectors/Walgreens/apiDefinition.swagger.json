@@ -1,0 +1,406 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Walgreens",
+    "description": "The Walgreens Developer Program allows you access to tap into the large and growing number of Walgreens stores, products, and more!",
+    "version": "1.0",
+    "contact": {
+      "name": "Troy Taylor",
+      "url": "https://www.hitachisolutions.com",
+      "email": "ttaylor@hitachisolutions.com"
+    }
+  },
+  "host": "services.walgreens.com",
+  "basePath": "/api",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/stores/search/v2": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Store Search",
+        "description": "The Store Locator API enables third party integrations to fetch, search, and filter real-time dynamic store location information about any of our thousands of store locations and their associated services.",
+        "operationId": "StoreSearch",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string",
+                  "description": "Your API Key.",
+                  "title": "API Key"
+                },
+                "affId": {
+                  "type": "string",
+                  "description": "Your AffiliateID.",
+                  "title": "AffiliateID"
+                },
+                "lat": {
+                  "type": "string",
+                  "description": "Required to search by location. The latitude coordinate of the user.",
+                  "title": "Latitude"
+                },
+                "lng": {
+                  "type": "string",
+                  "description": "Required to search by location. The longitude coordinate of the user.",
+                  "title": "Longitude"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "Required to search by address. The address of the user.",
+                  "title": "Address"
+                },
+                "zip": {
+                  "type": "string",
+                  "description": "Required to search by zipcode. The zipcode of the user.",
+                  "title": "Zipcode"
+                },
+                "r": {
+                  "type": "integer",
+                  "description": "The radius (miles) of the area to search. Default 10.",
+                  "title": "Radius",
+                  "default": 10
+                },
+                "s": {
+                  "type": "integer",
+                  "description": "The number of stores to return. Maximum 100. Default 10.",
+                  "title": "Number of Stores",
+                  "default": 10
+                },
+                "filterOptions": {
+                  "type": "string",
+                  "description": "An array of strings used to filter to stores only containing specific filters. It is defaulted to \"\", this would return all stores regardless of their features.",
+                  "title": "Filter"
+                },
+                "requestType": {
+                  "type": "string",
+                  "description": "A static value telling the channel of the requests.",
+                  "title": "Request Type",
+                  "default": "locator",
+                  "x-ms-visibility": "internal"
+                },
+                "appVer": {
+                  "type": "string",
+                  "description": "The build version of your application.",
+                  "title": "App Version"
+                },
+                "devInf": {
+                  "type": "string",
+                  "description": "The device manufacturer and version.",
+                  "title": "Device Info"
+                }
+              },
+              "required": [
+                "apiKey",
+                "affId",
+                "r",
+                "s",
+                "requestType"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/stores/details/v1": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Store Details",
+        "description": "This endpoint can be used to fetch the entire list of store details for the storeNo passed into the API.",
+        "operationId": "StoreDetails",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string",
+                  "description": "Your API Key.",
+                  "title": "API Key"
+                },
+                "affId": {
+                  "type": "string",
+                  "description": "Your AffiliateID.",
+                  "title": "AffiliateID"
+                },
+                "storeNo": {
+                  "type": "string",
+                  "description": "The store number to query.",
+                  "title": "Store Number"
+                },
+                "appVer": {
+                  "type": "string",
+                  "description": "The build version of your application.",
+                  "title": "App Version"
+                },
+                "devInf": {
+                  "type": "string",
+                  "description": "The device manufacturer and version.",
+                  "title": "Device Info"
+                }
+              },
+              "required": [
+                "apiKey",
+                "affId",
+                "storeNo"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/util/storenumber/v1": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "errDesc": {
+                  "type": "string",
+                  "description": "errDesc",
+                  "title": "Error Description"
+                },
+                "errCode": {
+                  "type": "string",
+                  "description": "errCode",
+                  "title": "Error Code"
+                },
+                "store": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Store Fields",
+                    "title": "Store Fields"
+                  },
+                  "description": "store"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Store Number List",
+        "description": "This endpoint can be used to fetch the list of all store numbers.",
+        "operationId": "StoreList",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string",
+                  "description": "Your API Key.",
+                  "title": "API Key"
+                },
+                "affId": {
+                  "type": "string",
+                  "description": "Your AffiliateID.",
+                  "title": "AffiliateID"
+                },
+                "act": {
+                  "type": "string",
+                  "description": "A static value telling our service what to do - always set to the value \"storenumber\".",
+                  "default": "storenumber",
+                  "x-ms-visibility": "internal",
+                  "title": "Action"
+                },
+                "appVer": {
+                  "type": "string",
+                  "description": "The build version of your application.",
+                  "title": "App Version"
+                },
+                "devInf": {
+                  "type": "string",
+                  "description": "The device manufacturer and version.",
+                  "title": "Device Info"
+                }
+              },
+              "required": [
+                "apiKey",
+                "affId",
+                "act"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/products/inventory/v2": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Store Inventory",
+        "description": "This endpoint is used to check the inventory of a particular Walgreens store for the specified items.",
+        "operationId": "StoreInventory",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "apikey": {
+                  "type": "string",
+                  "description": "Your API Key.",
+                  "title": "API Key"
+                },
+                "affId": {
+                  "type": "string",
+                  "description": "Your AffiliateID.",
+                  "title": "AffiliateID"
+                },
+                "store": {
+                  "type": "string",
+                  "format": "int32",
+                  "description": "The store number you are looking up inventory.",
+                  "title": "Store"
+                },
+                "planograms": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "int32",
+                    "description": "The array of planograms you are looking up the inventory of at that store. Maximum of 1000 per request.",
+                    "title": "Planograms"
+                  },
+                  "description": "planograms"
+                }
+              },
+              "required": [
+                "apikey",
+                "affId",
+                "planograms",
+                "store"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/util/mweb5url": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "description": "This service is used to fetch the \"landingURL\" used for the Rx Refill API and Rx Transfer API.",
+        "summary": "Obtain URL",
+        "operationId": "URLObtain",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string",
+                  "description": "Your API Key.",
+                  "title": "API Key"
+                },
+                "affId": {
+                  "type": "string",
+                  "description": "Your AffiliateID.",
+                  "title": "AffiliateID"
+                },
+                "transaction": {
+                  "type": "string",
+                  "description": "The transaction is a value that invokes the refill service.",
+                  "title": "Transaction",
+                  "default": "refillByScan",
+                  "enum": [
+                    "refillByScan",
+                    "obtainByScan"
+                  ]
+                },
+                "act": {
+                  "type": "string",
+                  "description": "The action is a value that invokes our internal service.",
+                  "title": "Action",
+                  "default": "mweb5Url",
+                  "x-ms-visibility": "internal"
+                },
+                "view": {
+                  "type": "string",
+                  "description": "The View is a value that invokes our internal service.",
+                  "title": "View",
+                  "default": "mweb5UrlJSON",
+                  "x-ms-visibility": "internal"
+                },
+                "appVer": {
+                  "type": "string",
+                  "description": "The build version of your application.",
+                  "title": "App Version"
+                },
+                "devInf": {
+                  "type": "string",
+                  "description": "The device manufacturer and version.",
+                  "title": "Device Info"
+                }
+              },
+              "required": [
+                "act",
+                "affId",
+                "apiKey",
+                "transaction",
+                "view"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": [],
+  "x-ms-connector-metadata": [
+      {
+        "propertyName": "Website",
+        "propertyValue": "https://www.walgreens.com/"
+      },
+      {
+        "propertyName": "Privacy policy",
+        "propertyValue": "https://www.walgreens.com/topic/help/general/noticeprivacypractices.jsp?foot=privacy"
+      },
+      {
+        "propertyName": "Categories",
+        "propertyValue": "Commerce;Website"
+      }
+    ]
+}
