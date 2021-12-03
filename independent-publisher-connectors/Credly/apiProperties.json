@@ -1,0 +1,36 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "username": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Authorization Token",
+          "description": "The Authorization Token for this API.",
+          "tooltip": "Provide the Authorization Token",
+          "constraints": {
+            "tabIndex": 2,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "password": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Blank",
+          "description": "The password for this API is to be left blank.",
+          "tooltip": "Do not enter anything here.",
+          "constraints": {
+            "tabIndex": 3,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "capabilities": [],
+    "publisher": "Troy Taylor",
+    "stackOwner": "Credly, Inc."
+  }
+}
