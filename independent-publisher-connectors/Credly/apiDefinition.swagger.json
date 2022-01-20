@@ -6215,7 +6215,7 @@
         ]
       }
     },
-    "/organizations/{organization_id}/issuer": {
+    "/organizations/{organization_id}/issuers": {
       "get": {
         "responses": {
           "200": {
