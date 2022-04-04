@@ -22,7 +22,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -122,7 +122,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -231,7 +231,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -340,7 +340,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -475,7 +475,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -620,7 +620,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -739,7 +739,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -884,7 +884,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -1038,7 +1038,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -1157,7 +1157,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -1267,7 +1267,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -1386,7 +1386,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
@@ -1491,7 +1491,7 @@
       "get": {
         "responses": {
           "200": {
-            "description": "default",
+            "description": "Success",
             "schema": {
               "type": "object",
               "properties": {
