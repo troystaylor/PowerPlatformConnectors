@@ -1,0 +1,6465 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "ThoughtTrace",
+    "contact": {},
+    "description": "ThoughtTrace is a document understanding and contract analytics platform that uses pre-trained AI to read, organize, and manage the document workflows and processes critical to your business."
+  },
+  "host": "www.example.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/bookmarks": {
+      "get": {
+        "description": "Get all bookmarks",
+        "summary": "Get all bookmarks",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Getallbookmarks",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BookmarkResult"
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create a bookmark",
+        "summary": "Create a bookmark",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Createabookmark",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Definition of the bookmark",
+            "schema": {
+              "$ref": "#/definitions/BookmarkCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BookmarkResult"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bookmarks/{id}": {
+      "delete": {
+        "description": "Delete a bookmark",
+        "summary": "Delete a bookmark",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Deleteabookmark",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a bookmark",
+        "summary": "Update a bookmark",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Updateabookmark",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Definition of the bookmark",
+            "schema": {
+              "$ref": "#/definitions/BookmarkUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bookmarks/{id}/configuration": {
+      "get": {
+        "description": "Get bookmark configuration",
+        "summary": "Get bookmark configuration",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Getbookmarkconfiguration",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BookmarkConfiguration"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update bookmark configuration",
+        "summary": "Update bookmark configuration",
+        "tags": [
+          "Bookmarks"
+        ],
+        "operationId": "Updatebookmarkconfiguration",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Configuration of the bookmark",
+            "schema": {
+              "$ref": "#/definitions/BookmarkConfiguration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bookmarks/{id}/userAlert": {
+      "get": {
+        "description": "Get alert for bookmark",
+        "summary": "Get alert for bookmark",
+        "tags": [
+          "Bookmarks (Preview)"
+        ],
+        "operationId": "Getalertforbookmark",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BookmarkAlertResult"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a bookmark alert",
+        "summary": "Delete a bookmark alert",
+        "tags": [
+          "Bookmarks (Preview)"
+        ],
+        "operationId": "Deleteabookmarkalert",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a bookmark alert",
+        "summary": "Update a bookmark alert",
+        "tags": [
+          "Bookmarks (Preview)"
+        ],
+        "operationId": "Updateabookmarkalert",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the bookmark"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Definition of the bookmark alert update (only cadence)",
+            "schema": {
+              "$ref": "#/definitions/BookmarkAlertUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BookmarkAlertResult"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/bookmarks/userAlerts": {
+      "get": {
+        "description": "Get all bookmark alerts for a user",
+        "summary": "Get all bookmark alerts for a user",
+        "tags": [
+          "Bookmarks (Preview)"
+        ],
+        "operationId": "Getallbookmarkalertsforauser",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BookmarkAlertResult"
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/classifications": {
+      "get": {
+        "description": "Get all classifications",
+        "summary": "Get all classifications",
+        "tags": [
+          "Configuration: Classifications"
+        ],
+        "operationId": "Getallclassifications",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Classification"
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/classifications/{classificationId}": {
+      "get": {
+        "description": "Get a classification",
+        "summary": "Get a classification",
+        "tags": [
+          "Configuration: Classifications"
+        ],
+        "operationId": "Getaclassification",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "classificationId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Classification"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documentTypes": {
+      "get": {
+        "description": "Get all document types",
+        "summary": "Get all document types",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Getalldocumenttypes",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentType"
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new document type",
+        "summary": "Create a new document type",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Createanewdocumenttype",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentTypeCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentTypeCreateResponse"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documentTypes/{id}": {
+      "delete": {
+        "description": "Delete a document type",
+        "summary": "Delete a document type",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Deleteadocumenttype",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document type."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a document type",
+        "summary": "Update a document type",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Updateadocumenttype",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document type."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentTypeUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documentTypes/{id}/archive": {
+      "post": {
+        "description": "Archive a document type",
+        "summary": "Archive a document type",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Archiveadocumenttype",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document type."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documentTypes/{id}/restore": {
+      "post": {
+        "description": "Restore a document type",
+        "summary": "Restore a document type",
+        "tags": [
+          "Configuration: Document Types"
+        ],
+        "operationId": "Restoreadocumenttype",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document type."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/factTypes": {
+      "get": {
+        "description": "Get all fact types",
+        "summary": "Get all fact types",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Getallfacttypes",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FactType"
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new fact type",
+        "summary": "Create a new fact type",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Createanewfacttype",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FactTypeCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactType"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/factTypes/{id}": {
+      "delete": {
+        "description": "Delete a fact type",
+        "summary": "Delete a fact type",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Deleteafacttype",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a fact type",
+        "summary": "Update a fact type",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Updateafacttype",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the fact type."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Updated details of the fact type.",
+            "schema": {
+              "$ref": "#/definitions/FactTypeUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactType"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/factTypes/{id}/archive": {
+      "post": {
+        "description": "Archive a fact type",
+        "summary": "Archive a fact type",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Archiveafacttype",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactType"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/factTypes/{id}/restore": {
+      "post": {
+        "description": "Restore a fact type",
+        "summary": "Restore a fact type",
+        "tags": [
+          "Configuration: Fact Types"
+        ],
+        "operationId": "Restoreafacttype",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactType"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries": {
+      "get": {
+        "description": "Get all libraries",
+        "summary": "Get all libraries",
+        "tags": [
+          "Configuration: Libraries (Preview)"
+        ],
+        "operationId": "Getalllibraries",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Library"
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create a library",
+        "summary": "Create a library",
+        "tags": [
+          "Configuration: Libraries (Preview)"
+        ],
+        "operationId": "Createalibrary",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LibraryCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Library"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{id}": {
+      "delete": {
+        "description": "Delete a library",
+        "summary": "Delete a library",
+        "tags": [
+          "Configuration: Libraries (Preview)"
+        ],
+        "operationId": "Deletealibrary",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the library to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The specified library is deleted",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "The specified library was not found to delete",
+            "headers": {}
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a library",
+        "summary": "Update a library",
+        "tags": [
+          "Configuration: Libraries (Preview)"
+        ],
+        "operationId": "Updatealibrary",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-merge-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the library"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-merge-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LibraryPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Library"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/ontologies": {
+      "get": {
+        "description": "Get all ontologies",
+        "summary": "Get all ontologies",
+        "tags": [
+          "Configuration: Ontologies"
+        ],
+        "operationId": "Getallontologies",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OntologyDefinition"
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/ontologies/{id}": {
+      "get": {
+        "description": "Get an ontology",
+        "summary": "Get an ontology",
+        "tags": [
+          "Configuration: Ontologies"
+        ],
+        "operationId": "Getanontology",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Id of the requested ontology"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OntologyDefinition"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "description": "Get all tags",
+        "summary": "Get all tags",
+        "tags": [
+          "Configuration: Tags"
+        ],
+        "operationId": "Getalltags",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tag"
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create a tag",
+        "summary": "Create a tag",
+        "tags": [
+          "Configuration: Tags"
+        ],
+        "operationId": "Createatag",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "tag name.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TagCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "The tag creation request was invalid for one of the following reasons, specified in the response title:\\\r\n**TagHasLeadingOrTrailingWhitespace**: The tag's ID must not have any leading or trailing whitespace\\\r\n**TagIsTooLong**: The tag's ID can't be longer than 36 characters",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/tags/{id}": {
+      "delete": {
+        "description": "Delete a tag",
+        "summary": "Delete a tag",
+        "tags": [
+          "Configuration: Tags"
+        ],
+        "operationId": "Deleteatag",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the tag to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The specified tag is deleted",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "The specified tag was not found to delete",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a tag",
+        "summary": "Update a tag",
+        "tags": [
+          "Configuration: Tags"
+        ],
+        "operationId": "Updateatag",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document type."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "tag updated name.",
+            "schema": {
+              "$ref": "#/definitions/TagUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents": {
+      "post": {
+        "description": "Upload a document",
+        "summary": "Upload a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Uploadadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": false,
+            "type": "file",
+            "format": "file",
+            "description": "File contents of the document."
+          },
+          {
+            "name": "upload",
+            "in": "formData",
+            "required": false,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/NewDocument"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{id}": {
+      "get": {
+        "description": "Get a document",
+        "summary": "Get a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Getadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document"
+          },
+          {
+            "name": "includeText",
+            "in": "query",
+            "required": false,
+            "default": false,
+            "type": "boolean",
+            "description": "Include document text"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Document"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a document",
+        "summary": "Delete a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Deleteadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a document",
+        "summary": "Update a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Updateadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-merge-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-merge-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{id}/analyze": {
+      "post": {
+        "description": "Analyze a document",
+        "summary": "Analyze a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Analyzeadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "default": false,
+            "type": "boolean",
+            "description": "Force re-analysis to occur even if analysis is already in progress"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{id}/history": {
+      "get": {
+        "description": "Get historical activity for a document",
+        "summary": "Get historical activity for a document",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Gethistoricalactivityforadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Document Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AuditEntry"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{id}/split": {
+      "post": {
+        "description": "Split a document using ThoughtTrace AI",
+        "summary": "Split a document using ThoughtTrace AI",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "SplitadocumentusingThoughtTraceAI",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Source document ID"
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "default": false,
+            "type": "boolean",
+            "description": "Force split to occur even if splitting is already in progress"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/search": {
+      "post": {
+        "description": "Search for documents",
+        "summary": "Search for documents",
+        "tags": [
+          "Documents"
+        ],
+        "operationId": "Searchfordocuments",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "Definition of search criteria",
+            "schema": {
+              "$ref": "#/definitions/DocumentSearch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentSearchResult"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/facts/{factId}/fields": {
+      "get": {
+        "description": "Get all fields from a fact",
+        "summary": "Get all fields from a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Getallfieldsfromafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to get a field from"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to get a field from"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FactField"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create new fields on a fact",
+        "summary": "Create new fields on a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Createnewfieldsonafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to add fields to."
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to add fields to."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "New fields to add to the fact.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentFactFieldCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FactField"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/facts/{factId}/fields/{fieldId}": {
+      "get": {
+        "description": "Get a field from a fact",
+        "summary": "Get a field from a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Getafieldfromafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to get a field from"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to get a field from"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactField"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a field from a fact",
+        "summary": "Delete a field from a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Deleteafieldfromafact",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to delete a field from"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to delete a field from"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a field on a fact",
+        "summary": "Update a field on a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Updateafieldonafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to update"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to update"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentFactFieldUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/FactField"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/facts/{factId}/fields/{fieldId}/annotations": {
+      "post": {
+        "description": "Create annotations for a field on a fact",
+        "summary": "Create annotations for a field on a fact",
+        "tags": [
+          "Documents: Fact Fields"
+        ],
+        "operationId": "Createannotationsforafieldonafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to update"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to update"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of annotations to create for given fact field instance",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AnnotationCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Annotation"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/facts": {
+      "get": {
+        "description": "Get all facts and their fields for a document",
+        "summary": "Get all facts and their fields for a document",
+        "tags": [
+          "Documents: Facts"
+        ],
+        "operationId": "Getallfactsandtheirfieldsforadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Fact"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete multiple facts and their fields",
+        "summary": "Delete multiple facts and their fields",
+        "tags": [
+          "Documents: Facts"
+        ],
+        "operationId": "Deletemultiplefactsandtheirfields",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to delete a fact on"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "IDs of the facts to delete",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Add new facts to a document",
+        "summary": "Add new facts to a document",
+        "tags": [
+          "Documents: Facts"
+        ],
+        "operationId": "Addnewfactstoadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of facts to add.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DocumentFactCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Fact"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/facts/{factId}": {
+      "get": {
+        "description": "Get a fact and its fields for a document",
+        "summary": "Get a fact and its fields for a document",
+        "tags": [
+          "Documents: Facts"
+        ],
+        "operationId": "Getafactanditsfieldsforadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to get facts for"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Fact"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a fact and its fields",
+        "summary": "Delete a fact and its fields",
+        "tags": [
+          "Documents: Facts"
+        ],
+        "operationId": "Deleteafactanditsfields",
+        "deprecated": true,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the document to delete a fact on"
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/splits": {
+      "get": {
+        "description": "Get document splits",
+        "summary": "Get document splits",
+        "tags": [
+          "Documents: Splits"
+        ],
+        "operationId": "Getdocumentsplits",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the source document"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentSplitResults"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete all splits for a document",
+        "summary": "Delete all splits for a document",
+        "tags": [
+          "Documents: Splits"
+        ],
+        "operationId": "Deleteallsplitsforadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the source document"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Create or adjust document splits",
+        "summary": "Create or adjust document splits",
+        "tags": [
+          "Documents: Splits"
+        ],
+        "operationId": "Createoradjustdocumentsplits",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the source document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of documents that are manipulated.",
+            "schema": {
+              "$ref": "#/definitions/DocumentSplitUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/tags": {
+      "get": {
+        "description": "Get all the tags for a document",
+        "summary": "Get all the tags for a document",
+        "tags": [
+          "Documents: Tags"
+        ],
+        "operationId": "Getallthetagsforadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tag"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Remove one or more tags from a document",
+        "summary": "Remove one or more tags from a document",
+        "tags": [
+          "Documents: Tags"
+        ],
+        "operationId": "Removeoneormoretagsfromadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of tagIds to remove.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Add one or more tags to a document",
+        "summary": "Add one or more tags to a document",
+        "tags": [
+          "Documents: Tags"
+        ],
+        "operationId": "Addoneormoretagstoadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of tagIds to add.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Set the tags for a document",
+        "summary": "Set the tags for a document",
+        "tags": [
+          "Documents: Tags"
+        ],
+        "operationId": "Setthetagsforadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of tagIds",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/tags/{tagId}": {
+      "delete": {
+        "description": "Remove a tag from a document",
+        "summary": "Remove a tag from a document",
+        "tags": [
+          "Documents: Tags"
+        ],
+        "operationId": "Removeatagfromadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of the document"
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Tag ID to remove from the document"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/textSections": {
+      "get": {
+        "description": "Get document text sections by document ID",
+        "summary": "Get document text sections by document ID",
+        "tags": [
+          "Documents: Text Sections"
+        ],
+        "operationId": "DocumentsTextSectionsByDocumentId_GET",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CompactTextSection"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/documents/{documentId}/thoughts": {
+      "get": {
+        "description": "Get all thoughts and their fields for a document",
+        "summary": "Get all thoughts and their fields for a document",
+        "tags": [
+          "Documents: Thoughts"
+        ],
+        "operationId": "Getallthoughtsandtheirfieldsforadocument",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Thought"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Extract thoughts for a document",
+        "summary": "Extract thoughts for a document",
+        "tags": [
+          "Documents: Thoughts"
+        ],
+        "operationId": "Extractthoughtsforadocument",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "default": false,
+            "type": "boolean",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/jobs/documents/bulk": {
+      "post": {
+        "description": "Initiate an action for one or more documents",
+        "summary": "Initiate an action for one or more documents",
+        "tags": [
+          "Jobs: Document Bulk Actions"
+        ],
+        "operationId": "Initiateanactionforoneormoredocuments",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentBulkAction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BulkJobResult"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/jobs/documents/exports": {
+      "post": {
+        "description": "Export one or more documents",
+        "summary": "Export one or more documents",
+        "tags": [
+          "Jobs: Document Exports"
+        ],
+        "operationId": "Exportoneormoredocuments",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentExport"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BulkJobResult"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/jobs/status/{jobId}": {
+      "get": {
+        "description": "Get the status of a job",
+        "summary": "Get the status of a job",
+        "tags": [
+          "Jobs: Status"
+        ],
+        "operationId": "Getthestatusofajob",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/JobStatus"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/jobs/status/search": {
+      "post": {
+        "description": "Search the status of jobs",
+        "summary": "Search the status of jobs",
+        "tags": [
+          "Jobs: Status"
+        ],
+        "operationId": "Searchthestatusofjobs",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/JobSearch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/JobMetadata"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{libraryId}/item/{base64urlEncodedValue}/factAggregations": {
+      "get": {
+        "description": "Get libraries item fact aggregation by library ID",
+        "summary": "Get libraries item fact aggregation by library ID",
+        "tags": [
+          "Library Items"
+        ],
+        "operationId": "LibrariesItemFactAggregationsByLibraryId_GET",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FactAggregation"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{libraryId}/item/search": {
+      "post": {
+        "description": "Search for library items within a library",
+        "summary": "Search for library items within a library",
+        "tags": [
+          "Library Items"
+        ],
+        "operationId": "Searchforlibraryitemswithinalibrary",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LibrarySearch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibrarySearchResult"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{libraryId}/item/{base64urlEncodedValue}/facts": {
+      "get": {
+        "description": "Get all facts and their fields for a libraryItem",
+        "summary": "Get all facts and their fields for a libraryItem",
+        "tags": [
+          "Library Items: Fact"
+        ],
+        "operationId": "GetallfactsandtheirfieldsforalibraryItem",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of a library."
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibraryItemFact"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete multiple facts and their fields",
+        "summary": "Delete multiple facts and their fields",
+        "tags": [
+          "Library Items: Fact"
+        ],
+        "operationId": "Deletemultiplefactsandtheirfields1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of a library."
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "IDs of the facts to delete",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Add new facts to a libraryItem",
+        "summary": "Add new facts to a libraryItem",
+        "tags": [
+          "Library Items: Fact"
+        ],
+        "operationId": "AddnewfactstoalibraryItem",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id of a library."
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "List of facts to add.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibraryItemFactCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibraryItemFact"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{libraryId}/item/{base64urlEncodedValue}/facts/{factId}/fields": {
+      "post": {
+        "description": "Create new fields on a fact",
+        "summary": "Create new fields on a fact",
+        "tags": [
+          "Library Items: Fact Fields"
+        ],
+        "operationId": "PostCreatenewfieldsonafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of library of the library item"
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to add fields to."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "New fields to add to the fact.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibraryItemFactFieldCreate"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LibraryItemFactField"
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/libraries/{libraryId}/item/{base64urlEncodedValue}/facts/{factId}/fields/{fieldId}": {
+      "delete": {
+        "description": "Delete a field from a fact",
+        "summary": "Delete a field from a fact",
+        "tags": [
+          "Library Items: Fact Fields"
+        ],
+        "operationId": "Deleteafieldfromafact1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of library of the library item"
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to delete a field from"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Update a field on a fact",
+        "summary": "Update a field on a fact",
+        "tags": [
+          "Library Items: Fact Fields"
+        ],
+        "operationId": "PutUpdateafieldonafact",
+        "deprecated": false,
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "consumes": [
+          "application/json-patch+json"
+        ],
+        "parameters": [
+          {
+            "name": "libraryId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of library of the library item"
+          },
+          {
+            "name": "base64urlEncodedValue",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "base64urlEncodedValue of keyFactField."
+          },
+          {
+            "name": "factId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the fact to update"
+          },
+          {
+            "name": "fieldId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the field to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json-patch+json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LibraryItemFactFieldUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LibraryItemFactField"
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "DocumentSearchSortByField": {
+      "title": "DocumentSearchSortByField",
+      "example": "CreatedOn",
+      "type": "string",
+      "enum": [
+        "CreatedOn",
+        "Name",
+        "Score",
+        "Pages",
+        "Fact",
+        "Thought"
+      ]
+    },
+    "SortOrder": {
+      "title": "SortOrder",
+      "example": "asc",
+      "type": "string",
+      "enum": [
+        "asc",
+        "desc"
+      ]
+    },
+    "DataType": {
+      "title": "DataType",
+      "example": "Number",
+      "type": "string",
+      "enum": [
+        "Number",
+        "String",
+        "Date",
+        "Boolean",
+        "SelectList"
+      ]
+    },
+    "DocumentSearchSort": {
+      "title": "DocumentSearchSort",
+      "type": "object",
+      "properties": {
+        "field": {
+          "$ref": "#/definitions/DocumentSearchSortByField"
+        },
+        "direction": {
+          "$ref": "#/definitions/SortOrder"
+        },
+        "sortById": {
+          "type": "string"
+        },
+        "sortByDataType": {
+          "$ref": "#/definitions/DataType"
+        }
+      }
+    },
+    "DateRangeFilter": {
+      "title": "DateRangeFilter",
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "excludeFrom": {
+          "type": "boolean"
+        },
+        "excludeTo": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SearchFilterOperator": {
+      "title": "SearchFilterOperator",
+      "example": "and",
+      "type": "string",
+      "enum": [
+        "and",
+        "or"
+      ]
+    },
+    "TextFilterQueryStringType": {
+      "title": "TextFilterQueryStringType",
+      "example": "basic",
+      "type": "string",
+      "enum": [
+        "basic",
+        "advanced"
+      ]
+    },
+    "NameFilter": {
+      "title": "NameFilter",
+      "type": "object",
+      "properties": {
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "type": {
+          "$ref": "#/definitions/TextFilterQueryStringType"
+        }
+      }
+    },
+    "NameFilters": {
+      "title": "NameFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NameFilter"
+          }
+        }
+      }
+    },
+    "FactSearchFilterFieldType": {
+      "title": "FactSearchFilterFieldType",
+      "type": "object",
+      "properties": {
+        "factTypeId": {
+          "type": "string"
+        },
+        "factFieldTypeId": {
+          "type": "string"
+        }
+      }
+    },
+    "SearchFilterComparisonOperator": {
+      "title": "SearchFilterComparisonOperator",
+      "example": "contains",
+      "type": "string",
+      "enum": [
+        "contains",
+        "does not contain",
+        "similar",
+        ">",
+        ">=",
+        "<",
+        "<=",
+        "=",
+        "does not equal",
+        "exists",
+        "does not exist",
+        "in"
+      ]
+    },
+    "FactSearchFilter": {
+      "title": "FactSearchFilter",
+      "type": "object",
+      "properties": {
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactSearchFilterFieldType"
+          }
+        },
+        "operator": {
+          "$ref": "#/definitions/SearchFilterComparisonOperator"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "stringValueList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FactFilters": {
+      "title": "FactFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactSearchFilter"
+          }
+        }
+      }
+    },
+    "ThoughtSearchFilterFieldType": {
+      "title": "ThoughtSearchFilterFieldType",
+      "type": "object",
+      "properties": {
+        "thoughtTypeId": {
+          "type": "string"
+        },
+        "thoughtFieldTypeId": {
+          "type": "string"
+        }
+      }
+    },
+    "ThoughtSearchFilter": {
+      "title": "ThoughtSearchFilter",
+      "type": "object",
+      "properties": {
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtSearchFilterFieldType"
+          }
+        },
+        "operator": {
+          "$ref": "#/definitions/SearchFilterComparisonOperator"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "stringValueList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ThoughtFilters": {
+      "title": "ThoughtFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtSearchFilter"
+          }
+        }
+      }
+    },
+    "TextFilter": {
+      "title": "TextFilter",
+      "type": "object",
+      "properties": {
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "type": {
+          "$ref": "#/definitions/TextFilterQueryStringType"
+        }
+      }
+    },
+    "TextFilters": {
+      "title": "TextFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextFilter"
+          }
+        }
+      }
+    },
+    "TagSearchFilter": {
+      "title": "TagSearchFilter",
+      "type": "object",
+      "properties": {
+        "tagId": {
+          "type": "string"
+        },
+        "isTagged": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TagFilters": {
+      "title": "TagFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TagSearchFilter"
+          }
+        }
+      }
+    },
+    "ProcessingStatus": {
+      "title": "ProcessingStatus",
+      "example": "Unknown",
+      "type": "string",
+      "enum": [
+        "Unknown",
+        "AwaitingAnalysis",
+        "AnalysisError",
+        "AwaitingClassification",
+        "ClassificationError",
+        "AwaitingExtraction",
+        "ExtractionError",
+        "NotProcessed",
+        "Processed",
+        "AwaitingSplitting",
+        "SplittingError"
+      ]
+    },
+    "SecurityLabelFilters": {
+      "title": "SecurityLabelFilters",
+      "type": "object",
+      "properties": {
+        "securityLabelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "include": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LibraryItemSearchFilter": {
+      "title": "LibraryItemSearchFilter",
+      "type": "object",
+      "properties": {
+        "libraryId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        }
+      }
+    },
+    "LibraryItemFilters": {
+      "title": "LibraryItemFilters",
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/SearchFilterOperator"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryItemSearchFilter"
+          }
+        }
+      }
+    },
+    "LastModifiedByFilters": {
+      "title": "LastModifiedByFilters",
+      "type": "object",
+      "properties": {
+        "subjectIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "includeAllInternalUsers": {
+          "type": "boolean"
+        },
+        "includeAllInternalClients": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ArchivedFilter": {
+      "title": "ArchivedFilter",
+      "example": "ExcludeArchived",
+      "type": "string",
+      "enum": [
+        "ExcludeArchived",
+        "IncludeArchived",
+        "ArchivedOnly"
+      ]
+    },
+    "DocumentSearch": {
+      "title": "DocumentSearch",
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000,
+          "format": "int32"
+        },
+        "skip": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/DocumentSearchSort"
+        },
+        "uploadedOnFilter": {
+          "$ref": "#/definitions/DateRangeFilter"
+        },
+        "nameFilters": {
+          "$ref": "#/definitions/NameFilters"
+        },
+        "factFilters": {
+          "$ref": "#/definitions/FactFilters"
+        },
+        "thoughtFilters": {
+          "$ref": "#/definitions/ThoughtFilters"
+        },
+        "textFilters": {
+          "$ref": "#/definitions/TextFilters"
+        },
+        "documentTypeFilters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tagFilters": {
+          "$ref": "#/definitions/TagFilters"
+        },
+        "processingStatusFilters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProcessingStatus"
+          }
+        },
+        "securityLabelFilters": {
+          "$ref": "#/definitions/SecurityLabelFilters"
+        },
+        "libraryItemFilters": {
+          "$ref": "#/definitions/LibraryItemFilters"
+        },
+        "lastModifiedOnFilter": {
+          "$ref": "#/definitions/DateRangeFilter"
+        },
+        "lastModifiedByFilters": {
+          "$ref": "#/definitions/LastModifiedByFilters"
+        },
+        "includeArchived": {
+          "type": "boolean"
+        },
+        "archivedFilter": {
+          "$ref": "#/definitions/ArchivedFilter"
+        },
+        "documentTypeSetByUserFilter": {
+          "type": "boolean"
+        },
+        "includeHighlightedText": {
+          "type": "boolean"
+        },
+        "thoughtFieldTypeIdsToInclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "factFieldTypeIdsToInclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "includePageDetails": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GridColumnConfiguration": {
+      "title": "GridColumnConfiguration",
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "managed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "StaticallyDefinedColumns": {
+      "title": "StaticallyDefinedColumns",
+      "type": "object",
+      "properties": {
+        "documentName": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "documentId": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "documentType": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "pages": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "tags": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "fullText": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "lastModifiedBy": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "uploadedDate": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "securityLabel": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        },
+        "documentProcessingStatus": {
+          "$ref": "#/definitions/GridColumnConfiguration"
+        }
+      }
+    },
+    "DocumentGridSettings": {
+      "title": "DocumentGridSettings",
+      "type": "object",
+      "properties": {
+        "staticallyDefinedColumns": {
+          "$ref": "#/definitions/StaticallyDefinedColumns"
+        },
+        "factFieldTypeColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/GridColumnConfiguration"
+          }
+        },
+        "thoughtFieldTypeColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/GridColumnConfiguration"
+          }
+        }
+      }
+    },
+    "BookmarkConfiguration": {
+      "title": "BookmarkConfiguration",
+      "type": "object",
+      "properties": {
+        "bookmarkSearchQuery": {
+          "$ref": "#/definitions/DocumentSearch"
+        },
+        "documentGridSettings": {
+          "$ref": "#/definitions/DocumentGridSettings"
+        }
+      }
+    },
+    "AlertCadence": {
+      "title": "AlertCadence",
+      "example": "Daily",
+      "type": "string",
+      "enum": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ]
+    },
+    "BookmarkAlertCreate": {
+      "title": "BookmarkAlertCreate",
+      "type": "object",
+      "properties": {
+        "cadence": {
+          "$ref": "#/definitions/AlertCadence"
+        }
+      }
+    },
+    "BookmarkCreate": {
+      "title": "BookmarkCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isSharedToAll": {
+          "type": "boolean"
+        },
+        "sharedWithUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "configuration": {
+          "$ref": "#/definitions/BookmarkConfiguration"
+        },
+        "alert": {
+          "$ref": "#/definitions/BookmarkAlertCreate"
+        }
+      }
+    },
+    "BookmarkResult": {
+      "title": "BookmarkResult",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastModifiedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "isSharedToAll": {
+          "type": "boolean"
+        },
+        "sharedWithUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "BookmarkUpdate": {
+      "title": "BookmarkUpdate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isSharedToAll": {
+          "type": "boolean"
+        },
+        "sharedWithUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BookmarkAlertResult": {
+      "title": "BookmarkAlertResult",
+      "type": "object",
+      "properties": {
+        "alertId": {
+          "type": "string"
+        },
+        "bookmarkId": {
+          "type": "string"
+        },
+        "toEmail": {
+          "type": "string"
+        },
+        "cadence": {
+          "type": "string"
+        }
+      }
+    },
+    "BookmarkAlertUpdate": {
+      "title": "BookmarkAlertUpdate",
+      "type": "object",
+      "properties": {
+        "cadence": {
+          "$ref": "#/definitions/AlertCadence"
+        }
+      }
+    },
+    "Classification": {
+      "title": "Classification",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "documentTypeId": {
+          "type": "string"
+        }
+      }
+    },
+    "ClassificationCreate": {
+      "title": "ClassificationCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentType": {
+      "title": "DocumentType",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ontologyId": {
+          "type": "string"
+        },
+        "classificationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DocumentTypeCreate": {
+      "title": "DocumentTypeCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ontologyId": {
+          "type": "string"
+        },
+        "classificationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "classificationIds"
+      ]
+    },
+    "DocumentTypeCreateResponse": {
+      "title": "DocumentTypeCreateResponse",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentTypeUpdate": {
+      "title": "DocumentTypeUpdate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ontologyId": {
+          "type": "string"
+        },
+        "classificationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "classificationIds"
+      ]
+    },
+    "MeasurementType": {
+      "title": "MeasurementType",
+      "example": "None",
+      "type": "string",
+      "enum": [
+        "None",
+        "Acres",
+        "Days",
+        "Months",
+        "Years",
+        "Dollars",
+        "Inches",
+        "Feet",
+        "Percentage",
+        "Miles"
+      ]
+    },
+    "FactFieldType": {
+      "title": "FactFieldType",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dataType": {
+          "$ref": "#/definitions/DataType"
+        },
+        "measurementType": {
+          "$ref": "#/definitions/MeasurementType"
+        },
+        "selectListValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FactType": {
+      "title": "FactType",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactFieldType"
+          }
+        },
+        "allowMultiple": {
+          "type": "boolean"
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FactFieldTypeCreate": {
+      "title": "FactFieldTypeCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dataType": {
+          "$ref": "#/definitions/DataType"
+        },
+        "measurementType": {
+          "$ref": "#/definitions/MeasurementType"
+        },
+        "selectListValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FactTypeCreate": {
+      "title": "FactTypeCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactFieldTypeCreate"
+          }
+        },
+        "allowMultiple": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FactFieldTypeCreateOrUpdate": {
+      "title": "FactFieldTypeCreateOrUpdate",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dataType": {
+          "$ref": "#/definitions/DataType"
+        },
+        "measurementType": {
+          "$ref": "#/definitions/MeasurementType"
+        },
+        "selectListValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FactTypeUpdate": {
+      "title": "FactTypeUpdate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "allowMultiple": {
+          "type": "boolean"
+        },
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactFieldTypeCreateOrUpdate"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FactTypeGroup": {
+      "title": "FactTypeGroup",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "factTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "keyFactTypeId": {
+          "type": "string"
+        },
+        "keyFactFieldTypeId": {
+          "type": "string"
+        },
+        "factTypeGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactTypeGroup"
+          }
+        },
+        "factTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FactTypeGroupCreate": {
+      "title": "FactTypeGroupCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "factTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "LibraryCreate": {
+      "title": "LibraryCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "keyFactTypeId": {
+          "type": "string"
+        },
+        "keyFactFieldTypeId": {
+          "type": "string"
+        },
+        "factTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "factTypeGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactTypeGroupCreate"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "keyFactTypeId",
+        "keyFactFieldTypeId"
+      ]
+    },
+    "LibraryPatch": {
+      "title": "LibraryPatch",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "factTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "factTypeGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactTypeGroup"
+          }
+        }
+      }
+    },
+    "ThoughtFieldType": {
+      "title": "ThoughtFieldType",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "entityId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "unitOfMeasure": {
+          "$ref": "#/definitions/MeasurementType"
+        },
+        "dataType": {
+          "$ref": "#/definitions/DataType"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ThoughtType": {
+      "title": "ThoughtType",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "fieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtFieldType"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OntologyDefinition": {
+      "title": "OntologyDefinition",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "thoughtTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtType"
+          }
+        }
+      }
+    },
+    "ExtractionEntityFieldDto": {
+      "title": "ExtractionEntityFieldDto",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "entityId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "unitOfMeasure": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ExtractionEntityDto": {
+      "title": "ExtractionEntityDto",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "example": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtractionEntityFieldDto"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OntologyDto": {
+      "title": "OntologyDto",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "extractions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtractionEntityDto"
+          }
+        }
+      }
+    },
+    "Tag": {
+      "title": "Tag",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TagCreate": {
+      "title": "TagCreate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TagUpdate": {
+      "title": "TagUpdate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "AuditEntityType": {
+      "title": "AuditEntityType",
+      "example": "Document",
+      "type": "string",
+      "enum": [
+        "Document",
+        "Tag",
+        "SecurityLabel",
+        "DocumentType",
+        "FactFieldType"
+      ]
+    },
+    "AuditActionType": {
+      "title": "AuditActionType",
+      "example": "Uploaded",
+      "type": "string",
+      "enum": [
+        "Uploaded",
+        "Archived",
+        "Restored",
+        "Split",
+        "Extracted",
+        "Added",
+        "Removed",
+        "Changed",
+        "Rotated"
+      ]
+    },
+    "AuditEntry": {
+      "title": "AuditEntry",
+      "type": "object",
+      "properties": {
+        "actionedBy": {
+          "type": "string"
+        },
+        "actionedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "entityType": {
+          "$ref": "#/definitions/AuditEntityType"
+        },
+        "actionType": {
+          "$ref": "#/definitions/AuditActionType"
+        },
+        "description": {
+          "type": "string"
+        },
+        "entityIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "AnnotationCreate": {
+      "title": "AnnotationCreate",
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DocumentFactFieldCreate": {
+      "title": "DocumentFactFieldCreate",
+      "type": "object",
+      "properties": {
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string",
+          "maxLength": 8191
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnnotationCreate"
+          }
+        }
+      },
+      "required": [
+        "factFieldTypeId"
+      ]
+    },
+    "DocumentFactCreate": {
+      "title": "DocumentFactCreate",
+      "type": "object",
+      "properties": {
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentFactFieldCreate"
+          }
+        }
+      },
+      "required": [
+        "factTypeId",
+        "fields"
+      ]
+    },
+    "DocumentUpload": {
+      "title": "DocumentUpload",
+      "type": "object",
+      "properties": {
+        "documentTypeId": {
+          "type": "string"
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentFactCreate"
+          }
+        },
+        "tagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "shouldSplit": {
+          "type": "boolean"
+        },
+        "securityLabelId": {
+          "type": "string"
+        }
+      }
+    },
+    "NewDocument": {
+      "title": "NewDocument",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "PageManipulationStatus": {
+      "title": "PageManipulationStatus",
+      "example": "NotProcessed",
+      "type": "string",
+      "enum": [
+        "NotProcessed",
+        "Processed",
+        "Processing",
+        "Error"
+      ]
+    },
+    "Document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "documentTypeId": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "archivedBy": {
+          "type": "string"
+        },
+        "archivedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fileUri": {
+          "type": "string"
+        },
+        "iotPdfUri": {
+          "type": "string"
+        },
+        "tableExtractionUri": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "fileUriExpiration": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "iotPdfUriExpiration": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingStatus": {
+          "$ref": "#/definitions/ProcessingStatus"
+        },
+        "pageManipulationStatus": {
+          "$ref": "#/definitions/PageManipulationStatus"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "securityLabelId": {
+          "type": "string"
+        },
+        "sourceDocumentId": {
+          "type": "string"
+        },
+        "sourceDocumentName": {
+          "type": "string"
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        },
+        "lastModifiedOn": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "DocumentPatch": {
+      "title": "DocumentPatch",
+      "type": "object",
+      "properties": {
+        "documentTypeId": {
+          "type": "string"
+        },
+        "securityLabelId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ThoughtFieldSearchResult": {
+      "title": "ThoughtFieldSearchResult",
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "highlightedText": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "thoughtFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "confidence": {
+          "type": "number",
+          "format": "double"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "ThoughtSearchResult": {
+      "title": "ThoughtSearchResult",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "thoughtTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtFieldSearchResult"
+          }
+        }
+      }
+    },
+    "Annotation": {
+      "title": "Annotation",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "FactFieldSearchResult": {
+      "title": "FactFieldSearchResult",
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "highlightedText": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        }
+      }
+    },
+    "FactSearchResult": {
+      "title": "FactSearchResult",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactFieldSearchResult"
+          }
+        }
+      }
+    },
+    "Page": {
+      "title": "Page",
+      "type": "object",
+      "properties": {
+        "thumbnailUri": {
+          "type": "string"
+        },
+        "imageUri": {
+          "type": "string"
+        },
+        "sourcePageNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentSearchResult": {
+      "title": "DocumentSearchResult",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "documentTypeId": {
+          "type": "string"
+        },
+        "processingStatus": {
+          "$ref": "#/definitions/ProcessingStatus"
+        },
+        "pageManipulationStatus": {
+          "$ref": "#/definitions/PageManipulationStatus"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "archivedBy": {
+          "type": "string"
+        },
+        "archivedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tagIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "thoughts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtSearchResult"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactSearchResult"
+          }
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Page"
+          }
+        },
+        "highlightedText": {
+          "type": "string"
+        },
+        "sourceDocumentId": {
+          "type": "string"
+        },
+        "sourceDocumentName": {
+          "type": "string"
+        },
+        "securityLabelId": {
+          "type": "string"
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        },
+        "lastModifiedOn": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "FactField": {
+      "title": "FactField",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        }
+      }
+    },
+    "DocumentFactFieldUpdate": {
+      "title": "DocumentFactFieldUpdate",
+      "type": "object",
+      "properties": {
+        "stringValue": {
+          "type": "string",
+          "maxLength": 8191
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Fact": {
+      "title": "Fact",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactField"
+          }
+        }
+      }
+    },
+    "SplitResultDocument": {
+      "title": "SplitResultDocument",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "documentTypeId": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "archivedBy": {
+          "type": "string"
+        },
+        "archivedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingStatus": {
+          "$ref": "#/definitions/ProcessingStatus"
+        },
+        "pageManipulationStatus": {
+          "$ref": "#/definitions/PageManipulationStatus"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Page"
+          }
+        },
+        "securityLabelId": {
+          "type": "string"
+        }
+      }
+    },
+    "DocumentSplitResults": {
+      "title": "DocumentSplitResults",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "fileUri": {
+          "type": "string"
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SplitResultDocument"
+          }
+        }
+      }
+    },
+    "RotationAngle": {
+      "title": "RotationAngle",
+      "example": "Ninety",
+      "type": "string",
+      "enum": [
+        "Ninety",
+        "OneHundredEighty",
+        "TwoHundredSeventy",
+        "None"
+      ]
+    },
+    "SplitDocumentPage": {
+      "title": "SplitDocumentPage",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "rotationAngle": {
+          "$ref": "#/definitions/RotationAngle"
+        }
+      }
+    },
+    "SplitDocument": {
+      "title": "SplitDocument",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "documentTypeId": {
+          "type": "string"
+        },
+        "splitFromDocumentId": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SplitDocumentPage"
+          }
+        }
+      }
+    },
+    "DocumentSplitUpdate": {
+      "title": "DocumentSplitUpdate",
+      "type": "object",
+      "properties": {
+        "splitDocuments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SplitDocument"
+          }
+        }
+      }
+    },
+    "CompactTextSection": {
+      "title": "CompactTextSection",
+      "type": "object",
+      "properties": {
+        "pIx": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wIx": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "t": {
+          "type": "number",
+          "format": "double"
+        },
+        "b": {
+          "type": "number",
+          "format": "double"
+        },
+        "l": {
+          "type": "number",
+          "format": "double"
+        },
+        "r": {
+          "type": "number",
+          "format": "double"
+        },
+        "rs": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "re": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ThoughtField": {
+      "title": "ThoughtField",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "thoughtFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "confidence": {
+          "type": "number",
+          "format": "double"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Thought": {
+      "title": "Thought",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "thoughtTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtField"
+          }
+        }
+      }
+    },
+    "BulkJobSearch": {
+      "title": "BulkJobSearch",
+      "type": "object",
+      "properties": {
+        "search": {
+          "$ref": "#/definitions/DocumentSearch"
+        },
+        "excludeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "includeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DocumentBulkAction": {
+      "title": "DocumentBulkAction",
+      "type": "object",
+      "properties": {
+        "bulkJobSearch": {
+          "$ref": "#/definitions/BulkJobSearch"
+        },
+        "tagIdsToAdd": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tagIdsToRemove": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "shouldChangeDocumentType": {
+          "type": "boolean"
+        },
+        "newDocumentTypeId": {
+          "type": "string"
+        },
+        "createFactList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentFactCreate"
+          }
+        },
+        "requestClassification": {
+          "type": "boolean"
+        },
+        "requestExtraction": {
+          "type": "boolean"
+        },
+        "shouldChangeSecurityLabelId": {
+          "type": "boolean"
+        },
+        "newSecurityLabelId": {
+          "type": "string"
+        },
+        "shouldArchive": {
+          "type": "boolean"
+        },
+        "shouldRestore": {
+          "type": "boolean"
+        },
+        "shouldDelete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "bulkJobSearch"
+      ]
+    },
+    "BulkJobResult": {
+      "title": "BulkJobResult",
+      "type": "object",
+      "properties": {
+        "jobCorrelationId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "FactFieldTypeIdentifier": {
+      "title": "FactFieldTypeIdentifier",
+      "type": "object",
+      "properties": {
+        "factTypeId": {
+          "type": "string"
+        },
+        "factFieldTypeId": {
+          "type": "string"
+        }
+      }
+    },
+    "ThoughtFieldTypeIdentifier": {
+      "title": "ThoughtFieldTypeIdentifier",
+      "type": "object",
+      "properties": {
+        "thoughtTypeId": {
+          "type": "string"
+        },
+        "thoughtFieldTypeId": {
+          "type": "string"
+        }
+      }
+    },
+    "ExportColumns": {
+      "title": "ExportColumns",
+      "type": "object",
+      "properties": {
+        "factFieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactFieldTypeIdentifier"
+          }
+        },
+        "thoughtFieldTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ThoughtFieldTypeIdentifier"
+          }
+        },
+        "includeFullText": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DocumentExport": {
+      "title": "DocumentExport",
+      "type": "object",
+      "properties": {
+        "bulkJobSearch": {
+          "$ref": "#/definitions/BulkJobSearch"
+        },
+        "columns": {
+          "$ref": "#/definitions/ExportColumns"
+        }
+      },
+      "required": [
+        "bulkJobSearch"
+      ]
+    },
+    "JobType": {
+      "title": "JobType",
+      "example": "BulkAction",
+      "type": "string",
+      "enum": [
+        "BulkAction",
+        "Export"
+      ]
+    },
+    "JobStatus": {
+      "title": "JobStatus",
+      "type": "object",
+      "properties": {
+        "percentComplete": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "documentFailCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "documentPassCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "jobCorrelationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "subjectId": {
+          "type": "string"
+        },
+        "jobType": {
+          "$ref": "#/definitions/JobType"
+        },
+        "totalDocuments": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "cancelledOn": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "JobSearch": {
+      "title": "JobSearch",
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "type": "string"
+        },
+        "includeCompleted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JobMetadata": {
+      "title": "JobMetadata",
+      "type": "object",
+      "properties": {
+        "jobCorrelationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "subjectId": {
+          "type": "string"
+        },
+        "jobType": {
+          "$ref": "#/definitions/JobType"
+        },
+        "totalDocuments": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "cancelledOn": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "FactAggregationField": {
+      "title": "FactAggregationField",
+      "type": "object",
+      "properties": {
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FactAggregation": {
+      "title": "FactAggregation",
+      "type": "object",
+      "properties": {
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FactAggregationField"
+          }
+        }
+      }
+    },
+    "LibrarySearch": {
+      "title": "LibrarySearch",
+      "type": "object",
+      "properties": {
+        "factFieldPhrase": {
+          "type": "string"
+        },
+        "documentTypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "factFilters": {
+          "$ref": "#/definitions/FactFilters"
+        }
+      }
+    },
+    "LibraryItemFactField": {
+      "title": "LibraryItemFactField",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LibraryItemFact": {
+      "title": "LibraryItemFact",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryItemFactField"
+          }
+        }
+      }
+    },
+    "LibrarySearchResult": {
+      "title": "LibrarySearchResult",
+      "type": "object",
+      "properties": {
+        "keyFactValue": {
+          "type": "string"
+        },
+        "documentCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryItemFact"
+          }
+        }
+      }
+    },
+    "LibraryItemFactFieldCreate": {
+      "title": "LibraryItemFactFieldCreate",
+      "type": "object",
+      "properties": {
+        "factFieldTypeId": {
+          "type": "string"
+        },
+        "stringValue": {
+          "type": "string",
+          "maxLength": 8191
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "factFieldTypeId"
+      ]
+    },
+    "LibraryItemFactCreate": {
+      "title": "LibraryItemFactCreate",
+      "type": "object",
+      "properties": {
+        "factTypeId": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryItemFactFieldCreate"
+          }
+        }
+      },
+      "required": [
+        "factTypeId",
+        "fields"
+      ]
+    },
+    "LibraryItemFactFieldUpdate": {
+      "title": "LibraryItemFactFieldUpdate",
+      "type": "object",
+      "properties": {
+        "stringValue": {
+          "type": "string",
+          "maxLength": 8191
+        },
+        "numberValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date"
+        },
+        "booleanValue": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "oauth2_auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://identity.thoughttrace.com/connect/authorize",
+      "tokenUrl": "https://identity.thoughttrace.com/connect/token",
+      "scopes": {
+        "thoughttrace": "thoughttrace"
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2_auth": [
+        "thoughttrace"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Bookmarks",
+      "description": ""
+    },
+    {
+      "name": "Bookmarks (Preview)",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Classifications",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Document Types",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Fact Types",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Libraries (Preview)",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Ontologies",
+      "description": ""
+    },
+    {
+      "name": "Configuration: Tags",
+      "description": ""
+    },
+    {
+      "name": "Documents",
+      "description": ""
+    },
+    {
+      "name": "Documents: Fact Fields",
+      "description": ""
+    },
+    {
+      "name": "Documents: Facts",
+      "description": ""
+    },
+    {
+      "name": "Documents: Splits",
+      "description": ""
+    },
+    {
+      "name": "Documents: Tags",
+      "description": ""
+    },
+    {
+      "name": "Documents: Text Sections",
+      "description": ""
+    },
+    {
+      "name": "Documents: Thoughts",
+      "description": ""
+    },
+    {
+      "name": "Jobs: Document Bulk Actions",
+      "description": ""
+    },
+    {
+      "name": "Jobs: Document Exports",
+      "description": ""
+    },
+    {
+      "name": "Jobs: Status",
+      "description": ""
+    },
+    {
+      "name": "Library Items",
+      "description": ""
+    },
+    {
+      "name": "Library Items: Fact",
+      "description": ""
+    },
+    {
+      "name": "Library Items: Fact Fields",
+      "description": ""
+    }
+  ]
+}
