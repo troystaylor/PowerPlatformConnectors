@@ -16,7 +16,9 @@
       }
     },
     "iconBrandColor": "#007ee5",
-    "scriptOperations": [],
+    "scriptOperations": [
+      "CompletionPost"
+    ],
     "capabilities": [],
     "policyTemplateInstances": [],
     "publisher": "Troy Taylor"
