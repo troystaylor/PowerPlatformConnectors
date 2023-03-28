@@ -15,12 +15,13 @@
         }
       }
     },
-    "iconBrandColor": "#007ee5",
+    "iconBrandColor": "#da3b01",
     "scriptOperations": [
       "CompletionPost"
     ],
     "capabilities": [],
     "policyTemplateInstances": [],
-    "publisher": "Troy Taylor"
+    "publisher": "Troy Taylor",
+    "stackOwner": "OpenAI"
   }
 }
