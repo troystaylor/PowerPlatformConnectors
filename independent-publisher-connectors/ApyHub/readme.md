@@ -1,5 +1,5 @@
 # ApyHub
-ApyHub is the a service utility belt that helps developers save time and boost efficiency. Included are actions for archiving and unarchive files.
+ApyHub is a service utility belt that helps developers save time and boost efficiency. Included are actions for archiving and unarchive files.
 
 ## Publisher: Troy Taylor, Hitachi Solutions
 
