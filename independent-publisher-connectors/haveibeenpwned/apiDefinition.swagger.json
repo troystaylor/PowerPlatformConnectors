@@ -3,7 +3,7 @@
   "info": {
     "title": "Have I Been Pwned",
     "description": "Check if your email address or phone number is in a data breach.",
-    "version": "1.3",
+    "version": "1.4",
     "contact": {
       "name": "Troy Taylor",
       "url": "https://www.hitachisolutions.com",
