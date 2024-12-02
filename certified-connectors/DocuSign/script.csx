@@ -298,7 +298,7 @@ public class Script : ScriptBase
       response["schema"]["properties"]["Build Number"] = new JObject
         {
           ["type"] = "string",
-          ["x-ms-summary"] = "DS1006"
+          ["x-ms-summary"] = "DS1007"
       };
     }
 
@@ -1230,6 +1230,7 @@ public class Script : ScriptBase
     var query = HttpUtility.ParseQueryString(this.Context.Request.RequestUri.Query);
     var uriBuilder = new UriBuilder(this.Context.Request.RequestUri);
     uriBuilder.Path = uriBuilder.Path.Replace("/resendEnvelope", "");
+    uriBuilder.Path = uriBuilder.Path.Replace("copilotAccount", this.Context.Request.Headers.GetValues("AccountId").FirstOrDefault());
     
     query["resend_envelope"] = "true";
     uriBuilder.Query = query.ToString();
@@ -1321,14 +1322,7 @@ public class Script : ScriptBase
 
     if (returnUrl.Equals("DocuSign homepage"))
     {
-      if (url.Equals("demo.docusign.net"))
-      {
-        body["returnUrl"] = "https://appdemo.docusign.com/";
-      }
-      else
-      {
-        body["returnUrl"] = "https://app.docusign.com/";
-      }
+      body["returnUrl"] = GetDocusignApiBaseUri();
     }
     else
     {
@@ -1470,11 +1464,40 @@ public class Script : ScriptBase
   private string GetEnvelopeUrl(JToken envelope)
   {
     var uriBuilder = new UriBuilder(this.Context.Request.RequestUri);
-    var envelopeUrl = uriBuilder.Uri.ToString().Contains("demo") ?
-      "https://apps-d.docusign.com/send/documents/details/" + envelope["envelopeId"] :
-      "https://app.docusign.com/documents/details/" + envelope["envelopeId"];
+
+    var path = uriBuilder.Uri.ToString().Contains("demo") || uriBuilder.Uri.ToString().Contains("stage") ? 
+    "/send/documents/details/" : "/documents/details/";
+    var envelopeUrl = GetDocusignApiBaseUri() + path + envelope["envelopeId"];
 
     return envelopeUrl;
+  }
+
+  private string GetDocusignApiBaseUri()
+  {
+    var host = this.Context.Request.RequestUri.Host.ToLower();
+    var docusignApiBaseUri = host.Contains("demo") ?
+        "https://apps-d.docusign.com"
+      : host.Contains("stage") ?
+        "https://apps-s.docusign.com"
+      : host.Contains(".mil") ?
+        "https://app.docusign.mil"
+      : "https://app.docusign.com";
+
+    return docusignApiBaseUri;
+  }
+
+  private string GetAccountServerBaseUri()
+  {
+    var host = this.Context.Request.RequestUri.Host.ToLower();
+    var accountServerBaseUri = host.Contains("demo") ?
+        "https://account-d.docusign.com"
+      : host.Contains("stage") ?
+        "https://account-s.docusign.com"
+      : host.Contains(".mil") ?
+        "https://account.docusign.mil"
+      : "https://account.docusign.com";
+
+    return accountServerBaseUri;
   }
 
   private void AddCoreRecipientParams(JArray signers, JObject body) 
@@ -1737,7 +1760,7 @@ public class Script : ScriptBase
   private async Task UpdateApiEndpoint()
   {
     string content = string.Empty;
-    using var userInfoRequest = new HttpRequestMessage(HttpMethod.Get, "https://account.docusign.com/oauth/userinfo");
+    using var userInfoRequest = new HttpRequestMessage(HttpMethod.Get, GetAccountServerBaseUri() + "/oauth/userinfo");
 
     // Access token is in the authorization header already
     userInfoRequest.Headers.Authorization = this.Context.Request.Headers.Authorization;
@@ -2021,10 +2044,10 @@ public class Script : ScriptBase
         null : query.Get("folder_ids").ToString();
        query["order_by"] = string.IsNullOrEmpty(query.Get("order_by")) ? 
         "status_changed" : query.Get("order_by");
-      query["from_date"] = string.IsNullOrEmpty(query.Get("startDateTime")) ? 
-        "2000-01-02T12:45Z" : query.Get("startDateTime");
-      query["to_date"] = string.IsNullOrEmpty(query.Get("endDateTime")) ? 
-        DateTimeOffset.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : query.Get("endDateTime");
+      query["from_date"] = string.IsNullOrEmpty(query.Get("from_date")) ? 
+        "2000-01-02T12:45Z" : query.Get("from_date");
+      query["to_date"] = string.IsNullOrEmpty(query.Get("to_date")) ? 
+        DateTimeOffset.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ") : query.Get("to_date");
 
       uriBuilder.Query = query.ToString();
       this.Context.Request.RequestUri = uriBuilder.Uri;
