@@ -5353,7 +5353,7 @@
             }
           }
         },
-        "summary": "Delete an invoce",
+        "summary": "Delete an invoice",
         "description": "Deletes an existing invoice. Invoices which have payment or credits note applied cannot be deleted.",
         "operationId": "InvoiceDelete",
         "parameters": [
