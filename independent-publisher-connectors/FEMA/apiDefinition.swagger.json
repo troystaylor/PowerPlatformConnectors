@@ -9281,7 +9281,7 @@
           "title": "Plan Type"
         },
         "planId": {
-          "description": "The MPP Plan ID is a unique number assisgned to each and every new or updated version of a plan. Note: one jurisdiction can have many Plan IDs if they have gone through several updates of a plan.",
+          "description": "The MPP Plan ID is a unique number assisigned to each and every new or updated version of a plan. Note: one jurisdiction can have many Plan IDs if they have gone through several updates of a plan.",
           "type": "integer",
           "format": "int32",
           "title": "Plan ID"
@@ -9399,7 +9399,7 @@
           "title": "State Number Code"
         },
         "isCrsCommunity": {
-          "description": "Indicates if the community is a CRS Community. Yes is indicated with either a 'true' or '1'. No is indicated with either a 'false' or '0'. This is a system driven field in the Community section in FEMA GO that is the result of the subapplicant/subgrantee's seletion from the Community Rating System (CRS) database.",
+          "description": "Indicates if the community is a CRS Community. Yes is indicated with either a 'true' or '1'. No is indicated with either a 'false' or '0'. This is a system driven field in the Community section in FEMA GO that is the result of the subapplicant/subgrantee's selection from the Community Rating System (CRS) database.",
           "type": "string",
           "title": "Is CRS Community"
         },
@@ -9658,7 +9658,7 @@
           "title": "Severe Repetitive Loss Structure"
         },
         "costEffectivenessMethod": {
-          "description": "Method used to evaluate the project site inventorys cost-effectiveness (e.g., FEMA BCA Toolkit, pre-calculated benefits, other BCA methodology approved by FEMA). This is a required field in the Cost-Effectiveness Information subsection from the Project Site Inventory section in FEMA GO for all Project Site Inventory Types.",
+          "description": "Method used to evaluate the project site inventories cost-effectiveness (e.g., FEMA BCA Toolkit, pre-calculated benefits, other BCA methodology approved by FEMA). This is a required field in the Cost-Effectiveness Information subsection from the Project Site Inventory section in FEMA GO for all Project Site Inventory Types.",
           "type": "string",
           "title": "Cost-Effectiveness Method"
         },
@@ -10709,7 +10709,7 @@
           "title": "Community Name Short"
         },
         "censusYear": {
-          "description": "The Census Year assiciated with the data.",
+          "description": "The Census Year associated with the data.",
           "type": "integer",
           "format": "int32",
           "title": "Census Year"
@@ -11281,7 +11281,7 @@
           "title": "Is PNP"
         },
         "applicantStatus": {
-          "description": "Specifies the Eligibility status of the Applicant for their request for public assistance. See the main dataset description for a list of codes.  Applicants may be ineligible if they are a for profit entity or if the work reuquested and costs are not eligible. https://www.fema.gov/pdf/government/grant/pa/fema323_app_handbk.pdf",
+          "description": "Specifies the Eligibility status of the Applicant for their request for public assistance. See the main dataset description for a list of codes.  Applicants may be ineligible if they are a for profit entity or if the work requested and costs are not eligible. https://www.fema.gov/pdf/government/grant/pa/fema323_app_handbk.pdf",
           "type": "string",
           "title": "Applicant Status"
         },
