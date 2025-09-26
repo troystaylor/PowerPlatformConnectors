@@ -1,0 +1,1802 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "M365 Copilot",
+        "description": "Access Microsoft 365 Copilot interaction data, meeting insights, transcripts, and recordings through official Microsoft Graph APIs. Requires Microsoft 365 Copilot license and appropriate permissions.",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Troy Taylor",
+            "email": "troy@troystaylor.com"
+        }
+    },
+    "host": "graph.microsoft.com",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1.0/me": {
+            "get": {
+                "operationId": "GetCurrentUser",
+                "summary": "Get current user",
+                "x-ms-summary": "Get Current User",
+                "x-ms-visibility": "internal",
+                "description": "Gets the current authenticated user information for testing connection.",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "x-ms-summary": "User ID",
+                                    "description": "The unique identifier for the user."
+                                },
+                                "displayName": {
+                                    "type": "string",
+                                    "x-ms-summary": "Display Name",
+                                    "description": "The display name of the user."
+                                },
+                                "userPrincipalName": {
+                                    "type": "string",
+                                    "x-ms-summary": "User Principal Name",
+                                    "description": "The user principal name of the user."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beta/copilot/retrieval": {
+            "post": {
+                "operationId": "RetrieveGroundingData",
+                "summary": "Retrieve grounding data (Preview)",
+                "x-ms-summary": "Retrieve Grounding Data (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Retrieves relevant text extracts from SharePoint, OneDrive, or Copilot connectors content that the calling user has access to, while respecting defined access controls within the tenant.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "queryString",
+                                "dataSource"
+                            ],
+                            "properties": {
+                                "queryString": {
+                                    "type": "string",
+                                    "x-ms-summary": "Query String",
+                                    "description": "Natural language query string used to retrieve relevant text extracts (max 1,500 characters).",
+                                    "maxLength": 1500
+                                },
+                                "dataSource": {
+                                    "type": "string",
+                                    "x-ms-summary": "Data Source",
+                                    "description": "Indicates whether extracts should be retrieved from SharePoint, OneDrive, or Copilot connectors.",
+                                    "enum": [
+                                        "sharePoint",
+                                        "oneDriveBusiness",
+                                        "externalItem"
+                                    ]
+                                },
+                                "dataSourceConfiguration": {
+                                    "type": "object",
+                                    "x-ms-summary": "Data Source Configuration",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Additional configuration information for applicable data sources.",
+                                    "properties": {
+                                        "externalItem": {
+                                            "type": "object",
+                                            "properties": {
+                                                "connections": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "connectionId": {
+                                                                "type": "string",
+                                                                "x-ms-summary": "Connection ID",
+                                                                "description": "The unique identifier of the Copilot connector connection."
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "filterExpression": {
+                                    "type": "string",
+                                    "x-ms-summary": "Filter Expression",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "KQL expression with queryable properties and attributes to scope the retrieval before the query runs"
+                                },
+                                "resourceMetadata": {
+                                    "type": "array",
+                                    "x-ms-summary": "Resource Metadata",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "List of metadata fields to be returned for each item in the response.",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "maximumNumberOfResults": {
+                                    "type": "integer",
+                                    "x-ms-summary": "Maximum Results",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Number of results to return (between 1 and 25).",
+                                    "minimum": 1,
+                                    "maximum": 25,
+                                    "default": 25
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/RetrievalResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/copilot/users/{userId}/interactionHistory/getAllEnterpriseInteractions": {
+            "get": {
+                "operationId": "GetCopilotInteractions",
+                "summary": "Get Copilot interactions",
+                "x-ms-summary": "Get Copilot Interactions",
+                "x-ms-visibility": "important",
+                "description": "Gets all Microsoft 365 Copilot interaction data for a specific user, including user prompts to Copilot and Copilot responses across Microsoft 365 apps such as Teams, Word, and Outlook.",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the user whose Copilot interactions to retrieve.",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-summary": "Filter",
+                        "x-ms-visibility": "advanced",
+                        "description": "Filter interactions by application class (e.g., appClass eq 'IPM.SkypeTeams.Message.Copilot.Teams' or appClass eq 'IPM.SkypeTeams.Message.Copilot.BizChat').",
+                        "x-ms-test-value": "appClass eq 'IPM.SkypeTeams.Message.Copilot.BizChat'"
+                    },
+                    {
+                        "name": "$top",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "x-ms-summary": "Top Count",
+                        "x-ms-visibility": "advanced",
+                        "description": "The number of items to return (recommended value is 100 for optimal performance).",
+                        "x-ms-test-value": 100
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "AI Interactions",
+                                    "description": "Array of detailed AI interaction objects with comprehensive interaction data.",
+                                    "items": {
+                                        "$ref": "#/definitions/AIInteraction"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/users": {
+            "get": {
+                "operationId": "ListUsers",
+                "summary": "List users",
+                "x-ms-summary": "List Users",
+                "x-ms-visibility": "internal",
+                "description": "Lists users in the organization for dynamic dropdown",
+                "parameters": [
+                    {
+                        "name": "$select",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-visibility": "internal",
+                        "description": "Select properties to be returned.",
+                        "default": "id,displayName,userPrincipalName"
+                    },
+                    {
+                        "name": "$top",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "x-ms-visibility": "internal",
+                        "description": "Number of items to return.",
+                        "default": 100
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "displayName": {
+                                                "type": "string"
+                                            },
+                                            "userPrincipalName": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/users/{userId}/onlineMeetings": {
+            "get": {
+                "operationId": "ListOnlineMeetings",
+                "summary": "List online meetings",
+                "x-ms-summary": "List Online Meetings",
+                "x-ms-visibility": "important",
+                "description": "Lists online meetings for a specific user",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the user whose meetings to retrieve",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-summary": "Filter",
+                        "x-ms-visibility": "advanced",
+                        "description": "Filter meetings by criteria (e.g., startDateTime)"
+                    },
+                    {
+                        "name": "$top",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "x-ms-summary": "Top Count",
+                        "x-ms-visibility": "advanced",
+                        "description": "The number of items to return",
+                        "x-ms-test-value": 25
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "Meetings",
+                                    "description": "Array of online meetings.",
+                                    "items": {
+                                        "$ref": "#/definitions/OnlineMeeting"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beta/copilot/users/{userId}/onlineMeetings/{onlineMeetingId}/aiInsights": {
+            "get": {
+                "operationId": "GetMeetingAIInsights",
+                "summary": "Get meeting AI insights (Preview)",
+                "x-ms-summary": "Get Meeting AI Insights (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Gets AI-generated insights from a Teams meeting including notes, action items, and mentions",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the user who organized the meeting",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "onlineMeetingId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "Meeting ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the online meeting"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "AI Insights",
+                                    "description": "Array of AI insight objects.",
+                                    "items": {
+                                        "$ref": "#/definitions/AIInsight"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beta/copilot/users/{userId}/onlineMeetings/{onlineMeetingId}/aiInsights/{aiInsightId}": {
+            "get": {
+                "operationId": "GetSpecificMeetingAIInsight",
+                "summary": "Get specific meeting AI insight (Preview)",
+                "x-ms-summary": "Get Specific Meeting AI Insight (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Gets detailed AI insights for a specific meeting insight object including meeting notes, action items, and participant mentions",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the user who organized the meeting",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "onlineMeetingId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "Meeting ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the online meeting"
+                    },
+                    {
+                        "name": "aiInsightId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "AI Insight ID",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the AI insight object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/DetailedAIInsight"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/users/{userId}/onlineMeetings/getAllTranscripts": {
+            "get": {
+                "operationId": "GetMeetingTranscripts",
+                "summary": "Get meeting transcripts",
+                "x-ms-summary": "Get Meeting Transcripts",
+                "x-ms-visibility": "important",
+                "description": "Gets all available Teams meeting transcripts for a user",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the meeting organizer",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-summary": "Filter",
+                        "x-ms-visibility": "advanced",
+                        "description": "Filter transcripts by organizer or date range"
+                    },
+                    {
+                        "name": "$top",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "x-ms-summary": "Top Count",
+                        "x-ms-visibility": "advanced",
+                        "description": "The number of items to return",
+                        "x-ms-test-value": 25
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "@odata.context": {
+                                    "type": "string",
+                                    "x-ms-summary": "Context",
+                                    "description": "The OData context"
+                                },
+                                "@odata.nextLink": {
+                                    "type": "string",
+                                    "x-ms-summary": "Next Link",
+                                    "description": "Link to the next page of results"
+                                },
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "Transcripts",
+                                    "description": "Array of meeting transcripts",
+                                    "items": {
+                                        "$ref": "#/definitions/MeetingTranscript"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/users/{userId}/onlineMeetings/getAllRecordings": {
+            "get": {
+                "operationId": "GetMeetingRecordings",
+                "summary": "Get meeting recordings",
+                "x-ms-summary": "Get Meeting Recordings",
+                "x-ms-visibility": "important",
+                "description": "Gets all available Teams meeting recordings for a user",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "User ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the meeting organizer",
+                        "x-ms-dynamic-values": {
+                            "operationId": "ListUsers",
+                            "value-path": "id",
+                            "value-title": "displayName",
+                            "value-collection": "value"
+                        }
+                    },
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-summary": "Filter",
+                        "x-ms-visibility": "advanced",
+                        "description": "Filter recordings by organizer or date range"
+                    },
+                    {
+                        "name": "$top",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "x-ms-summary": "Top Count",
+                        "x-ms-visibility": "advanced",
+                        "description": "The number of items to return",
+                        "x-ms-test-value": 25
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "@odata.context": {
+                                    "type": "string",
+                                    "x-ms-summary": "Context",
+                                    "description": "The OData context"
+                                },
+                                "@odata.nextLink": {
+                                    "type": "string",
+                                    "x-ms-summary": "Next Link",
+                                    "description": "Link to the next page of results"
+                                },
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "Recordings",
+                                    "description": "Array of meeting recordings.",
+                                    "items": {
+                                        "$ref": "#/definitions/MeetingRecording"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/beta/admin/copilot/limitedMode": {
+            "get": {
+                "operationId": "GetCopilotAdminLimitedMode",
+                "summary": "Get Copilot admin limited mode settings (Preview)",
+                "x-ms-summary": "Get Copilot Admin Limited Mode Settings (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Gets the current settings that control whether users of Microsoft 365 Copilot in Teams meetings can receive responses to sentiment-related prompts.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/CopilotAdminLimitedMode"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "UpdateCopilotAdminLimitedMode",
+                "summary": "Update Copilot admin limited mode settings (Preview)",
+                "x-ms-summary": "Update Copilot Admin Limited Mode Settings (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Updates the settings that control whether users of Microsoft 365 Copilot in Teams meetings can receive responses to sentiment-related prompts.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "isEnabledForGroup": {
+                                    "type": "boolean",
+                                    "x-ms-summary": "Is Enabled For Group",
+                                    "description": "Enables users to be in limited mode for Copilot in Teams meetings. When true, users in this mode can ask any questions, but Copilot doesn't respond to certain questions related to inferring emotions, behavior, or judgments. When false, it responds to all types of questions grounded to the meeting conversation."
+                                },
+                                "groupId": {
+                                    "type": "string",
+                                    "x-ms-summary": "Group ID",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "The ID of a Microsoft Entra group for which the isEnabledForGroup value is applied. Required if isEnabledForGroup is set to true."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Settings Updated",
+                        "schema": {
+                            "$ref": "#/definitions/CopilotAdminLimitedMode"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/subscriptions": {
+            "post": {
+                "operationId": "CreateCopilotNotificationSubscription",
+                "summary": "Create Copilot notification subscription (Preview)",
+                "x-ms-summary": "Create Copilot Notification Subscription (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Creates a subscription to receive change notifications for Copilot AI interactions.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "changeType",
+                                "notificationUrl",
+                                "resource",
+                                "expirationDateTime"
+                            ],
+                            "properties": {
+                                "changeType": {
+                                    "type": "string",
+                                    "x-ms-summary": "Change Type",
+                                    "description": "Comma-separated list of event types to monitor (e.g., 'created,updated,deleted').",
+                                    "default": "created,updated,deleted"
+                                },
+                                "notificationUrl": {
+                                    "type": "string",
+                                    "x-ms-summary": "Notification URL",
+                                    "description": "The URL of the endpoint that receives the change notifications.",
+                                    "format": "uri"
+                                },
+                                "resource": {
+                                    "type": "string",
+                                    "x-ms-summary": "Resource Path",
+                                    "description": "The resource path to monitor for changes (e.g., '/copilot/users/{userId}/interactionHistory/getAllEnterpriseInteractions' or '/copilot/interactionHistory/getAllEnterpriseInteractions').",
+                                    "enum": [
+                                        "/copilot/interactionHistory/getAllEnterpriseInteractions",
+                                        "/copilot/users/{userId}/interactionHistory/getAllEnterpriseInteractions"
+                                    ]
+                                },
+                                "expirationDateTime": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "x-ms-summary": "Expiration Date Time",
+                                    "description": "The date and time when the subscription expires (maximum 1 hour from creation)."
+                                },
+                                "includeResourceData": {
+                                    "type": "boolean",
+                                    "x-ms-summary": "Include Resource Data",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Whether to include the changed resource data in notifications (requires encryption certificate).",
+                                    "default": false
+                                },
+                                "encryptionCertificate": {
+                                    "type": "string",
+                                    "x-ms-summary": "Encryption Certificate",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Base64-encoded public certificate for encrypting resource data (required if includeResourceData is true)."
+                                },
+                                "encryptionCertificateId": {
+                                    "type": "string",
+                                    "x-ms-summary": "Encryption Certificate ID",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Custom identifier for the encryption certificate."
+                                },
+                                "clientState": {
+                                    "type": "string",
+                                    "x-ms-summary": "Client State",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "Secret client state that is returned with each notification."
+                                },
+                                "lifecycleNotificationUrl": {
+                                    "type": "string",
+                                    "x-ms-summary": "Lifecycle Notification URL",
+                                    "x-ms-visibility": "advanced",
+                                    "description": "The URL for lifecycle notifications (required for subscriptions longer than 1 hour).",
+                                    "format": "uri"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "x-ms-summary": "Subscription Created",
+                        "schema": {
+                            "$ref": "#/definitions/Subscription"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "ListCopilotNotificationSubscriptions",
+                "summary": "List Copilot notification subscriptions (Preview)",
+                "x-ms-summary": "List Copilot Notification Subscriptions (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Lists all active subscriptions for Copilot change notifications.",
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "type": "string",
+                        "x-ms-summary": "Filter",
+                        "x-ms-visibility": "advanced",
+                        "description": "Filter subscriptions by criteria (e.g., \"resource eq '/copilot/interactionHistory/getAllEnterpriseInteractions'\")."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "x-ms-summary": "Subscriptions",
+                                    "description": "Array of subscription objects.",
+                                    "items": {
+                                        "$ref": "#/definitions/Subscription"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1.0/subscriptions/{subscriptionId}": {
+            "get": {
+                "operationId": "GetCopilotNotificationSubscription",
+                "summary": "Get Copilot notification subscription (Preview)",
+                "x-ms-summary": "Get Copilot Notification Subscription (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Gets details of a specific Copilot change notification subscription.",
+                "parameters": [
+                    {
+                        "name": "subscriptionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "Subscription ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the subscription."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Subscription"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "UpdateCopilotNotificationSubscription",
+                "summary": "Update Copilot notification subscription (Preview)",
+                "x-ms-summary": "Update Copilot Notification Subscription (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Updates an existing Copilot change notification subscription (typically to extend expiration).",
+                "parameters": [
+                    {
+                        "name": "subscriptionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "Subscription ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the subscription to update."
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "expirationDateTime": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "x-ms-summary": "New Expiration Date Time",
+                                    "description": "The new expiration date and time for the subscription."
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "x-ms-summary": "Subscription Updated",
+                        "schema": {
+                            "$ref": "#/definitions/Subscription"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DeleteCopilotNotificationSubscription",
+                "summary": "Delete Copilot notification subscription (Preview)",
+                "x-ms-summary": "Delete Copilot Notification Subscription (Preview)",
+                "x-ms-visibility": "important",
+                "description": "Deletes a Copilot change notification subscription.",
+                "parameters": [
+                    {
+                        "name": "subscriptionId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "x-ms-summary": "Subscription ID",
+                        "x-ms-visibility": "important",
+                         "x-ms-url-encoding": "single",
+                        "description": "The unique identifier of the subscription to delete."
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "x-ms-summary": "Subscription Deleted"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "RetrievalResponse": {
+            "type": "object",
+            "x-ms-summary": "Retrieval Response",
+            "description": "Response from the retrieval API containing relevant text extracts.",
+            "properties": {
+                "retrievalHits": {
+                    "type": "array",
+                    "x-ms-summary": "Retrieval Hits",
+                    "description": "Array of retrieval hits containing text extracts and metadata.",
+                    "items": {
+                        "$ref": "#/definitions/RetrievalHit"
+                    }
+                }
+            }
+        },
+        "Subscription": {
+            "type": "object",
+            "x-ms-summary": "Subscription",
+            "description": "Represents a subscription to change notifications.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Subscription ID",
+                    "description": "Unique identifier for the subscription."
+                },
+                "changeType": {
+                    "type": "string",
+                    "x-ms-summary": "Change Type",
+                    "description": "Comma-separated list of event types being monitored."
+                },
+                "notificationUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Notification URL",
+                    "description": "The URL where notifications are sent."
+                },
+                "resource": {
+                    "type": "string",
+                    "x-ms-summary": "Resource",
+                    "description": "The resource path being monitored for changes."
+                },
+                "expirationDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Expiration Date Time",
+                    "description": "When the subscription expires."
+                },
+                "clientState": {
+                    "type": "string",
+                    "x-ms-summary": "Client State",
+                    "description": "Optional client state returned with notifications."
+                },
+                "latestSupportedTlsVersion": {
+                    "type": "string",
+                    "x-ms-summary": "Latest Supported TLS Version",
+                    "description": "The latest version of TLS supported by the notification endpoint."
+                },
+                "encryptionCertificate": {
+                    "type": "string",
+                    "x-ms-summary": "Encryption Certificate",
+                    "description": "Base64-encoded public certificate for encrypting resource data."
+                },
+                "encryptionCertificateId": {
+                    "type": "string",
+                    "x-ms-summary": "Encryption Certificate ID",
+                    "description": "Custom identifier for the encryption certificate."
+                },
+                "includeResourceData": {
+                    "type": "boolean",
+                    "x-ms-summary": "Include Resource Data",
+                    "description": "Whether the changed resource data is included in notifications."
+                },
+                "lifecycleNotificationUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Lifecycle Notification URL",
+                    "description": "The URL for receiving lifecycle notifications."
+                },
+                "applicationId": {
+                    "type": "string",
+                    "x-ms-summary": "Application ID",
+                    "description": "Identifier of the application that created the subscription."
+                },
+                "creatorId": {
+                    "type": "string",
+                    "x-ms-summary": "Creator ID",
+                    "description": "Identifier of the user or service principal that created the subscription."
+                }
+            }
+        },
+        "CopilotAdminLimitedMode": {
+            "type": "object",
+            "x-ms-summary": "Copilot Admin Limited Mode",
+            "description": "Represents settings that control whether users of Microsoft 365 Copilot in Teams meetings can receive responses to sentiment-related prompts.",
+            "properties": {
+                "@odata.type": {
+                    "type": "string",
+                    "x-ms-summary": "OData Type",
+                    "description": "The OData type of the resource."
+                },
+                "groupId": {
+                    "type": "string",
+                    "x-ms-summary": "Group ID",
+                    "description": "The ID of a Microsoft Entra group, for which the value of isEnabledForGroup is applied. The default value is null. If isEnabledForGroup is set to true, the groupId value must be provided for the Copilot limited mode in Teams meetings to be enabled for the members of the group."
+                },
+                "isEnabledForGroup": {
+                    "type": "boolean",
+                    "x-ms-summary": "Is Enabled For Group",
+                    "description": "Enables the user to be in limited mode for Copilot in Teams meetings. When copilotAdminLimitedMode=true, users in this mode can ask any questions, but Copilot doesn't respond to certain questions related to inferring emotions, behavior, or judgments. When copilotAdminLimitedMode=false, it responds to all types of questions grounded to the meeting conversation. The default value is false."
+                }
+            }
+        },
+        "AIInteraction": {
+            "type": "object",
+            "x-ms-summary": "AI Interaction",
+            "description": "Represents a comprehensive Microsoft 365 Copilot interaction with detailed data.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Interaction ID",
+                    "description": "Unique identifier for the AI interaction."
+                },
+                "sessionId": {
+                    "type": "string",
+                    "x-ms-summary": "Session ID",
+                    "description": "Identifier for the conversation session."
+                },
+                "requestId": {
+                    "type": "string",
+                    "x-ms-summary": "Request ID",
+                    "description": "Unique identifier for the specific request."
+                },
+                "appClass": {
+                    "type": "string",
+                    "x-ms-summary": "Application Class",
+                    "description": "The Microsoft 365 application where the interaction occurred (e.g., 'IPM.SkypeTeams.Message.Copilot.Teams', 'IPM.SkypeTeams.Message.Copilot.BizChat')."
+                },
+                "interactionType": {
+                    "type": "string",
+                    "x-ms-summary": "Interaction Type",
+                    "description": "The type of interaction (e.g., 'userPrompt', 'aiResponse')."
+                },
+                "conversationType": {
+                    "type": "string",
+                    "x-ms-summary": "Conversation Type",
+                    "description": "The type of conversation (e.g., 'appchat', 'bizchat')."
+                },
+                "etag": {
+                    "type": "string",
+                    "x-ms-summary": "ETag",
+                    "description": "Entity tag for versioning and caching."
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the interaction occurred."
+                },
+                "locale": {
+                    "type": "string",
+                    "x-ms-summary": "Locale",
+                    "description": "The locale/language of the interaction."
+                },
+                "contexts": {
+                    "type": "array",
+                    "x-ms-summary": "Contexts",
+                    "description": "Array of context objects providing additional information about the interaction environment.",
+                    "items": {
+                        "$ref": "#/definitions/InteractionContext"
+                    }
+                },
+                "from": {
+                    "$ref": "#/definitions/ChatMessageFromIdentitySet"
+                },
+                "body": {
+                    "$ref": "#/definitions/ItemBody"
+                },
+                "attachments": {
+                    "type": "array",
+                    "x-ms-summary": "Attachments",
+                    "description": "Array of attachment objects.",
+                    "items": {
+                        "$ref": "#/definitions/ChatMessageAttachment"
+                    }
+                },
+                "links": {
+                    "type": "array",
+                    "x-ms-summary": "Links",
+                    "description": "Array of link objects referenced in the interaction.",
+                    "items": {
+                        "$ref": "#/definitions/InteractionLink"
+                    }
+                },
+                "mentions": {
+                    "type": "array",
+                    "x-ms-summary": "Mentions",
+                    "description": "Array of mention objects.",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            }
+        },
+        "InteractionContext": {
+            "type": "object",
+            "x-ms-summary": "Interaction Context",
+            "description": "Context information about the interaction environment.",
+            "properties": {
+                "contextReference": {
+                    "type": "string",
+                    "x-ms-summary": "Context Reference",
+                    "description": "URL or reference to the context source."
+                },
+                "displayName": {
+                    "type": "string",
+                    "x-ms-summary": "Display Name",
+                    "description": "Display name of the context."
+                },
+                "contextType": {
+                    "type": "string",
+                    "x-ms-summary": "Context Type",
+                    "description": "The type of context (e.g., 'TeamsMeeting')."
+                }
+            }
+        },
+        "ChatMessageFromIdentitySet": {
+            "type": "object",
+            "x-ms-summary": "Message From Identity",
+            "description": "Identity information about who sent the message.",
+            "properties": {
+                "@odata.type": {
+                    "type": "string",
+                    "x-ms-summary": "OData Type",
+                    "description": "OData type identifier."
+                },
+                "device": {
+                    "type": "object",
+                    "x-ms-summary": "Device",
+                    "description": "Device information (if applicable)."
+                },
+                "user": {
+                    "$ref": "#/definitions/TeamworkUserIdentity"
+                },
+                "application": {
+                    "$ref": "#/definitions/TeamworkApplicationIdentity"
+                }
+            }
+        },
+        "TeamworkUserIdentity": {
+            "type": "object",
+            "x-ms-summary": "User Identity",
+            "description": "User identity information.",
+            "properties": {
+                "@odata.type": {
+                    "type": "string",
+                    "x-ms-summary": "OData Type",
+                    "description": "OData type identifier."
+                },
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "User ID",
+                    "description": "Unique identifier of the user."
+                },
+                "displayName": {
+                    "type": "string",
+                    "x-ms-summary": "Display Name",
+                    "description": "Display name of the user."
+                },
+                "userIdentityType": {
+                    "type": "string",
+                    "x-ms-summary": "User Identity Type",
+                    "description": "Type of user identity (e.g., 'aadUser')."
+                },
+                "tenantId": {
+                    "type": "string",
+                    "x-ms-summary": "Tenant ID",
+                    "description": "Tenant identifier."
+                }
+            }
+        },
+        "TeamworkApplicationIdentity": {
+            "type": "object",
+            "x-ms-summary": "Application Identity",
+            "description": "Application identity information.",
+            "properties": {
+                "@odata.type": {
+                    "type": "string",
+                    "x-ms-summary": "OData Type",
+                    "description": "OData type identifier."
+                },
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Application ID",
+                    "description": "Unique identifier of the application."
+                },
+                "displayName": {
+                    "type": "string",
+                    "x-ms-summary": "Display Name",
+                    "description": "Display name of the application (e.g., 'Copilot in Teams', 'Microsoft 365 Chat')."
+                },
+                "applicationIdentityType": {
+                    "type": "string",
+                    "x-ms-summary": "Application Identity Type",
+                    "description": "Type of application identity (e.g., 'bot')."
+                }
+            }
+        },
+        "ItemBody": {
+            "type": "object",
+            "x-ms-summary": "Item Body",
+            "description": "Body content of the interaction message.",
+            "properties": {
+                "contentType": {
+                    "type": "string",
+                    "x-ms-summary": "Content Type",
+                    "description": "The content type (e.g., 'text', 'html')."
+                },
+                "content": {
+                    "type": "string",
+                    "x-ms-summary": "Content",
+                    "description": "The actual content of the message."
+                }
+            }
+        },
+        "ChatMessageAttachment": {
+            "type": "object",
+            "x-ms-summary": "Chat Message Attachment",
+            "description": "Attachment associated with the chat message.",
+            "properties": {
+                "attachmentId": {
+                    "type": "string",
+                    "x-ms-summary": "Attachment ID",
+                    "description": "Unique identifier of the attachment."
+                },
+                "contentType": {
+                    "type": "string",
+                    "x-ms-summary": "Content Type",
+                    "description": "The content type of the attachment."
+                },
+                "contentUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Content URL",
+                    "description": "URL to access the attachment content."
+                },
+                "content": {
+                    "type": "string",
+                    "x-ms-summary": "Content",
+                    "description": "The attachment content (for inline attachments)."
+                },
+                "name": {
+                    "type": "string",
+                    "x-ms-summary": "Name",
+                    "description": "Display name of the attachment."
+                }
+            }
+        },
+        "InteractionLink": {
+            "type": "object",
+            "x-ms-summary": "Interaction Link",
+            "description": "Link referenced in the interaction.",
+            "properties": {
+                "linkUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Link URL",
+                    "description": "The URL of the link."
+                },
+                "displayName": {
+                    "type": "string",
+                    "x-ms-summary": "Display Name",
+                    "description": "Display name of the link."
+                },
+                "linkType": {
+                    "type": "string",
+                    "x-ms-summary": "Link Type",
+                    "description": "Type of link (e.g., 'Event', 'Meeting', 'File')."
+                }
+            }
+        },
+        "RetrievalHit": {
+            "type": "object",
+            "x-ms-summary": "Retrieval Hit",
+            "description": "A single retrieval hit containing text extracts and metadata.",
+            "properties": {
+                "webUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Web URL",
+                    "description": "URL to access the source document."
+                },
+                "extracts": {
+                    "type": "array",
+                    "x-ms-summary": "Text Extracts",
+                    "description": "Relevant text extracts from the document.",
+                    "items": {
+                        "$ref": "#/definitions/TextExtract"
+                    }
+                },
+                "resourceType": {
+                    "type": "string",
+                    "x-ms-summary": "Resource Type",
+                    "description": "Type of resource (e.g., listItem, externalItem)."
+                },
+                "resourceMetadata": {
+                    "type": "object",
+                    "x-ms-summary": "Resource Metadata",
+                    "description": "Metadata about the resource."
+                },
+                "sensitivityLabel": {
+                    "$ref": "#/definitions/SensitivityLabel"
+                }
+            }
+        },
+        "TextExtract": {
+            "type": "object",
+            "x-ms-summary": "Text Extract",
+            "description": "A text extract from a document.",
+            "properties": {
+                "text": {
+                    "type": "string",
+                    "x-ms-summary": "Text",
+                    "description": "The extracted text content."
+                }
+            }
+        },
+        "SensitivityLabel": {
+            "type": "object",
+            "x-ms-summary": "Sensitivity Label",
+            "description": "Information protection sensitivity label.",
+            "properties": {
+                "sensitivityLabelId": {
+                    "type": "string",
+                    "x-ms-summary": "Sensitivity Label ID",
+                    "description": "Unique identifier for the sensitivity label."
+                },
+                "displayName": {
+                    "type": "string",
+                    "x-ms-summary": "Display Name",
+                    "description": "Display name of the sensitivity label."
+                },
+                "toolTip": {
+                    "type": "string",
+                    "x-ms-summary": "Tooltip",
+                    "description": "Tooltip text for the sensitivity label."
+                },
+                "priority": {
+                    "type": "integer",
+                    "x-ms-summary": "Priority",
+                    "description": "Priority level of the sensitivity label."
+                },
+                "color": {
+                    "type": "string",
+                    "x-ms-summary": "Color",
+                    "description": "Color code for the sensitivity label."
+                },
+                "isEncrypted": {
+                    "type": "boolean",
+                    "x-ms-summary": "Is Encrypted",
+                    "description": "Whether the content is encrypted."
+                }
+            }
+        },
+        "CopilotInteraction": {
+            "type": "object",
+            "x-ms-summary": "Copilot Interaction",
+            "description": "Represents a user interaction with Microsoft 365 Copilot.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Interaction ID",
+                    "description": "Unique identifier for the interaction."
+                },
+                "userId": {
+                    "type": "string",
+                    "x-ms-summary": "User ID",
+                    "description": "The user who initiated the interaction."
+                },
+                "appClass": {
+                    "type": "string",
+                    "x-ms-summary": "Application Class",
+                    "description": "The Microsoft 365 application where the interaction occurred."
+                },
+                "interactionType": {
+                    "type": "string",
+                    "x-ms-summary": "Interaction Type",
+                    "description": "The type of interaction (e.g., query, generation)."
+                },
+                "prompt": {
+                    "type": "string",
+                    "x-ms-summary": "User Prompt",
+                    "description": "The user's input prompt to Copilot."
+                },
+                "response": {
+                    "type": "string",
+                    "x-ms-summary": "Copilot Response",
+                    "description": "Copilot's response to the user."
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the interaction occurred."
+                },
+                "duration": {
+                    "type": "string",
+                    "x-ms-summary": "Duration",
+                    "description": "Duration of the interaction."
+                },
+                "contextData": {
+                    "type": "object",
+                    "x-ms-summary": "Context Data",
+                    "description": "Additional context about the interaction."
+                }
+            }
+        },
+        "OnlineMeeting": {
+            "type": "object",
+            "x-ms-summary": "Online Meeting",
+            "description": "Represents a Microsoft Teams online meeting.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Meeting ID",
+                    "description": "Unique identifier for the meeting."
+                },
+                "subject": {
+                    "type": "string",
+                    "x-ms-summary": "Subject",
+                    "description": "The subject of the meeting."
+                },
+                "startDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Start Date Time",
+                    "description": "Meeting start time."
+                },
+                "endDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "End Date Time",
+                    "description": "Meeting end time."
+                },
+                "organizer": {
+                    "type": "object",
+                    "x-ms-summary": "Organizer",
+                    "description": "Meeting organizer details.",
+                    "properties": {
+                        "identity": {
+                            "type": "object",
+                            "properties": {
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "x-ms-summary": "Organizer ID"
+                                        },
+                                        "displayName": {
+                                            "type": "string",
+                                            "x-ms-summary": "Organizer Name"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "joinWebUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Join URL",
+                    "description": "URL to join the meeting."
+                }
+            }
+        },
+        "AIInsight": {
+            "type": "object",
+            "x-ms-summary": "AI Insight",
+            "description": "Represents AI-generated insight metadata from a meeting.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Insight ID",
+                    "description": "Unique identifier for the AI insight"
+                },
+                "callId": {
+                    "type": "string",
+                    "x-ms-summary": "Call ID",
+                    "description": "Unique identifier for the call"
+                },
+                "contentCorrelationId": {
+                    "type": "string",
+                    "x-ms-summary": "Content Correlation ID",
+                    "description": "Correlates with the meeting transcript"
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the transcript was created"
+                },
+                "endDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "End Date Time",
+                    "description": "When the transcript ended"
+                }
+            }
+        },
+        "DetailedAIInsight": {
+            "type": "object",
+            "x-ms-summary": "Detailed AI Insight",
+            "description": "Detailed AI-generated insights from a meeting.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Insight ID",
+                    "description": "Unique identifier for the AI insight"
+                },
+                "callId": {
+                    "type": "string",
+                    "x-ms-summary": "Call ID",
+                    "description": "Unique identifier for the call"
+                },
+                "contentCorrelationId": {
+                    "type": "string",
+                    "x-ms-summary": "Content Correlation ID",
+                    "description": "Correlates with the meeting transcript"
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the transcript was created"
+                },
+                "endDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "End Date Time",
+                    "description": "When the transcript ended"
+                },
+                "meetingNotes": {
+                    "type": "array",
+                    "x-ms-summary": "Meeting Notes",
+                    "description": "AI-generated meeting notes.",
+                    "items": {
+                        "$ref": "#/definitions/MeetingNote"
+                    }
+                },
+                "actionItems": {
+                    "type": "array",
+                    "x-ms-summary": "Action Items",
+                    "description": "Action items extracted from the meeting.",
+                    "items": {
+                        "$ref": "#/definitions/ActionItem"
+                    }
+                },
+                "viewpoint": {
+                    "$ref": "#/definitions/ViewPoint"
+                }
+            }
+        },
+        "MeetingNote": {
+            "type": "object",
+            "x-ms-summary": "Meeting Note",
+            "description": "A note from the meeting discussion.",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "x-ms-summary": "Title",
+                    "description": "The title of the note."
+                },
+                "text": {
+                    "type": "string",
+                    "x-ms-summary": "Text",
+                    "description": "The content of the note."
+                },
+                "subpoints": {
+                    "type": "array",
+                    "x-ms-summary": "Subpoints",
+                    "description": "Detailed subpoints of the note.",
+                    "items": {
+                        "$ref": "#/definitions/MeetingNoteSubpoint"
+                    }
+                }
+            }
+        },
+        "MeetingNoteSubpoint": {
+            "type": "object",
+            "x-ms-summary": "Meeting Note Subpoint",
+            "description": "A subpoint within a meeting note.",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "x-ms-summary": "Title",
+                    "description": "The title of the subpoint."
+                },
+                "text": {
+                    "type": "string",
+                    "x-ms-summary": "Text",
+                    "description": "The content of the subpoint."
+                }
+            }
+        },
+        "ActionItem": {
+            "type": "object",
+            "x-ms-summary": "Action Item",
+            "description": "An action item identified from the meeting.",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "x-ms-summary": "Title",
+                    "description": "The title of the action item."
+                },
+                "text": {
+                    "type": "string",
+                    "x-ms-summary": "Text",
+                    "description": "The description of the action item."
+                },
+                "ownerDisplayName": {
+                    "type": "string",
+                    "x-ms-summary": "Owner Display Name",
+                    "description": "The display name of the person assigned the action item."
+                }
+            }
+        },
+        "ViewPoint": {
+            "type": "object",
+            "x-ms-summary": "ViewPoint",
+            "description": "Participant-specific information from the conversation.",
+            "properties": {
+                "mentionEvents": {
+                    "type": "array",
+                    "x-ms-summary": "Mention Events",
+                    "description": "Events where participants were mentioned.",
+                    "items": {
+                        "$ref": "#/definitions/MentionEvent"
+                    }
+                }
+            }
+        },
+        "MentionEvent": {
+            "type": "object",
+            "x-ms-summary": "Mention Event",
+            "description": "An event where a participant was mentioned.",
+            "properties": {
+                "eventDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Event Date Time",
+                    "description": "When the mention occurred."
+                },
+                "transcriptUtterance": {
+                    "type": "string",
+                    "x-ms-summary": "Transcript Utterance",
+                    "description": "The utterance containing the mention."
+                },
+                "speaker": {
+                    "type": "object",
+                    "x-ms-summary": "Speaker",
+                    "description": "Information about who spoke.",
+                    "properties": {
+                        "user": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "x-ms-summary": "Speaker ID"
+                                },
+                                "displayName": {
+                                    "type": "string",
+                                    "x-ms-summary": "Speaker Name"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "MeetingTranscript": {
+            "type": "object",
+            "x-ms-summary": "Meeting Transcript",
+            "description": "Represents a Teams meeting transcript.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Transcript ID",
+                    "description": "Unique identifier for the transcript."
+                },
+                "meetingId": {
+                    "type": "string",
+                    "x-ms-summary": "Meeting ID",
+                    "description": "The meeting this transcript belongs to."
+                },
+                "meetingOrganizerId": {
+                    "type": "string",
+                    "x-ms-summary": "Meeting Organizer ID",
+                    "description": "The organizer of the meeting"
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the transcript was created"
+                },
+                "transcriptContentUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Transcript Content URL",
+                    "description": "URL to access the transcript content."
+                }
+            }
+        },
+        "MeetingRecording": {
+            "type": "object",
+            "x-ms-summary": "Meeting Recording",
+            "description": "Represents a Teams meeting recording.",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-ms-summary": "Recording ID",
+                    "description": "Unique identifier for the recording."
+                },
+                "meetingId": {
+                    "type": "string",
+                    "x-ms-summary": "Meeting ID",
+                    "description": "The meeting this recording belongs to."
+                },
+                "meetingOrganizerId": {
+                    "type": "string",
+                    "x-ms-summary": "Meeting Organizer ID",
+                    "description": "The organizer of the meeting"
+                },
+                "createdDateTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "x-ms-summary": "Created Date Time",
+                    "description": "When the recording was created"
+                },
+                "recordingContentUrl": {
+                    "type": "string",
+                    "x-ms-summary": "Recording Content URL",
+                    "description": "URL to access the recording content."
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "oauth2": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+            "scopes": {
+                "https://graph.microsoft.com/AiEnterpriseInteraction.Read.All": "Read all Copilot interactions",
+                "https://graph.microsoft.com/Sites.Read.All": "Read items in all site collections",
+                "https://graph.microsoft.com/Files.Read.All": "Read all files",
+                "https://graph.microsoft.com/ExternalItem.Read.All": "Read external items from connectors",
+                "https://graph.microsoft.com/Chat.Read.All": "Read all chat messages",
+                "https://graph.microsoft.com/ChannelMessage.Read.All": "Read all channel messages",
+                "https://graph.microsoft.com/OnlineMeetingRecording.Read.All": "Read all meeting recordings",
+                "https://graph.microsoft.com/OnlineMeetingTranscript.Read.All": "Read all meeting transcripts",
+                "https://graph.microsoft.com/User.Read.All": "Read all users",
+                "https://graph.microsoft.com/Subscription.Read.All": "Read all subscriptions",
+                "https://graph.microsoft.com/Subscription.ReadWrite.All": "Read and write all subscriptions",
+                "https://graph.microsoft.com/CopilotSettings.Read.All": "Read Copilot admin settings",
+                "https://graph.microsoft.com/CopilotSettings.ReadWrite.All": "Read and write Copilot admin settings"
+            }
+        }
+    },
+    "security": [
+        {
+            "oauth2": [
+                "https://graph.microsoft.com/AiEnterpriseInteraction.Read.All",
+                "https://graph.microsoft.com/Sites.Read.All",
+                "https://graph.microsoft.com/Files.Read.All",
+                "https://graph.microsoft.com/ExternalItem.Read.All",
+                "https://graph.microsoft.com/Chat.Read.All",
+                "https://graph.microsoft.com/ChannelMessage.Read.All",
+                "https://graph.microsoft.com/OnlineMeetingRecording.Read.All",
+                "https://graph.microsoft.com/OnlineMeetingTranscript.Read.All",
+                "https://graph.microsoft.com/User.Read.All",
+                "https://graph.microsoft.com/Subscription.Read.All",
+                "https://graph.microsoft.com/Subscription.ReadWrite.All",
+                "https://graph.microsoft.com/CopilotSettings.Read.All",
+                "https://graph.microsoft.com/CopilotSettings.ReadWrite.All"
+            ]
+        }
+    ],
+    "x-ms-capabilities": {
+        "testConnection": {
+            "operationId": "GetCurrentUser",
+            "parameters": {}
+        }
+    },
+    "x-ms-connector-metadata": [
+        {
+            "propertyName": "Website",
+            "propertyValue": "https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/"
+        },
+        {
+            "propertyName": "Privacy policy",
+            "propertyValue": "https://privacy.microsoft.com/privacystatement"
+        },
+        {
+            "propertyName": "Categories",
+            "propertyValue": "AI;Productivity"
+        }
+    ]
+}

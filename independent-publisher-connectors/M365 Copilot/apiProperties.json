@@ -1,0 +1,84 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "aad",
+          "clientId": "",
+          "scopes": [
+            "https://graph.microsoft.com/Copilot.ReadWrite",
+            "https://graph.microsoft.com/OnlineMeetings.ReadWrite",
+            "https://graph.microsoft.com/OnlineMeetingTranscript.Read.All",
+            "https://graph.microsoft.com/OnlineMeetingRecording.Read.All",
+            "https://graph.microsoft.com/Sites.Read.All",
+            "https://graph.microsoft.com/Files.Read.All",
+            "https://graph.microsoft.com/User.Read.All",
+            "https://graph.microsoft.com/User.Read",
+            "https://graph.microsoft.com/Directory.Read.All"
+          ],
+          "redirectMode": "GlobalPerConnector",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "properties": {
+            "IsFirstParty": "False",
+            "AzureActiveDirectoryResourceId": "https://graph.microsoft.com/",
+            "IsOnbehalfofLoginSupported": true
+          },
+          "customParameters": {
+            "resourceUri": {
+              "value": "https://graph.microsoft.com/"
+            },
+            "loginUri": {
+              "value": "https://login.microsoftonline.com"
+            },
+            "tenantId": {
+              "value": "common"
+            }
+          }
+        }
+      },
+      "token:TenantId": {
+        "type": "string",
+        "metadata": {
+          "sourceType": "AzureActiveDirectoryTenant"
+        },
+        "uiDefinition": {
+          "constraints": {
+            "required": "false",
+            "hidden": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "capabilities": ["actions"],
+    "scriptOperations": ["InvokeServer"],
+    "publisher": "Troy Taylor",
+    "stackOwner": "Microsoft",
+    "policyTemplateInstances": [
+      {
+        "templateId": "setheader",
+        "title": "Set User-Agent header",
+        "parameters": {
+          "x-ms-apimTemplate-operationName": [
+            "RetrieveGroundingData",
+            "GetCopilotInteractions", 
+            "GetMeetingAIInsights",
+            "GetMeetingTranscripts",
+            "GetMeetingRecordings", 
+            "ListOnlineMeetings",
+            "CreateCopilotNotificationSubscription",
+            "GetCopilotAdminSettings",
+            "UpdateCopilotAdminSettings",
+            "ListUsers",
+            "InvokeServer"
+          ],
+          "x-ms-apimTemplateParameter.name": "User-Agent",
+          "x-ms-apimTemplateParameter.value": "PowerPlatform-Connector/1.0 Microsoft365-Copilot-Independent-Publisher",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Request"
+        }
+      }
+    ]
+  }
+}
